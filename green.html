@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Điền Trang Đại Đồng — Lộ trình hệ sinh thái 3 giai đoạn</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-150 -150 300 300'%3E%3Ccircle r='128' fill='%23063F28' stroke='%23DCB254' stroke-width='10'/%3E%3Cpolygon points='0,-34 22,0 0,34 -22,0' fill='%2392C846'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Poster-Synced Minimalist Botanical & Đông Sơn Gold Palette */
+      --canvas: #F1F5EC;
+      --canvas-subtle: #E6EDE0;
+      --surface: #FCFDFB;
+      --surface-muted: #EDF2E8;
+      --ink-forest: #063824;
+      --ink-body: #1E3529;
+      --ink-muted: #4D6254;
+      --olive-main: #3E6B2C;
+      --olive-soft: rgba(62, 107, 44, 0.10);
+      --sprout: #82C341;
+      --gold-bronze: #A8791E;
+      --gold-warm: #D8AE4E;
+      --gold-soft: rgba(216, 174, 78, 0.16);
+      --line: #CFDAC9;
+      --line-strong: #B3C3AB;
+
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: clip;
+    }
+
+    body {
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--canvas);
+      color: var(--ink-body);
+      min-height: 100dvh;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: clip;
+    }
+
+    button, a {
+      font-family: inherit;
+    }
+
+    button:focus-visible, a:focus-visible {
+      outline: 2px solid var(--gold-bronze);
+      outline-offset: 2px;
+    }
+
+    @media (min-width: 1025px) {
+      html, body {
+        height: 100dvh;
+        max-height: 100dvh;
+        overflow: hidden;
+      }
+    }
+
+    /* ==========================================================================
+       1. APP SHELL (100dvh Zero-Scroll on Desktop, Clean Flow on Mobile)
+       ========================================================================== */
+    .app-shell {
+      max-width: 1680px;
+      margin: 0 auto;
+      height: 100dvh;
+      max-height: 100dvh;
+      padding: clamp(8px, 1.2vh, 16px) clamp(16px, 2vw, 32px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(8px, 1.1vh, 14px);
+    }
+
+    @media (max-width: 1024px) {
+      .app-shell {
+        height: auto;
+        max-height: none;
+        padding: 12px 14px 76px;
+        gap: 12px;
+      }
+    }
+
+    /* ==========================================================================
+       2. MINIMALIST ARCHITECTURAL HEADER BAR
+       ========================================================================== */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: clamp(8px, 1.1vh, 13px);
+      border-bottom: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-width: 0;
+      cursor: pointer;
+    }
+
+    .brand-sun-svg {
+      width: clamp(46px, 5.6vh, 58px);
+      height: clamp(46px, 5.6vh, 58px);
+      flex-shrink: 0;
+      animation: sunSettle 0.95s var(--ease-out) both;
+    }
+
+    @keyframes sunSettle {
+      from { transform: rotate(-15deg) scale(0.94); opacity: 0.4; }
+      to   { transform: rotate(0deg) scale(1); opacity: 1; }
+    }
+
+    .brand-titles {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 0;
+    }
+
+    .brand-kicker {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--olive-main);
+      letter-spacing: 0.02em;
+    }
+
+    .brand-name {
+      font-size: clamp(17px, 2.2vh, 22px);
+      font-weight: 800;
+      color: var(--ink-forest);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .brand-seed {
+      width: 7px;
+      height: 7px;
+      background: var(--sprout);
+      transform: rotate(45deg);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .header-thesis {
+      flex: 1;
+      max-width: 660px;
+      font-size: clamp(11.5px, 1.35vh, 13px);
+      color: var(--ink-muted);
+      line-height: 1.42;
+      padding: 0 12px;
+      border-left: 1px solid var(--line);
+    }
+
+    .header-thesis strong {
+      color: var(--ink-forest);
+      font-weight: 600;
+    }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .group-tag {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--ink-forest);
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      padding: 6px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .overview-trigger {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #FCFDFB;
+      background: var(--ink-forest);
+      border: 1px solid var(--ink-forest);
+      padding: 6px 13px;
+      border-radius: 999px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s ease;
+    }
+    .overview-trigger:hover {
+      background: var(--olive-main);
+      border-color: var(--olive-main);
+    }
+
+    @media (max-width: 1120px) {
+      .header-thesis { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .top-bar {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .header-meta {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    /* ==========================================================================
+       3. SPLIT WORKSPACE: 34% INSPECTOR | 66% CARTOGRAPHIC ROADMAP
+       ========================================================================== */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: minmax(320px, 34.5%) minmax(0, 65.5%);
+      gap: clamp(12px, 1.4vw, 20px);
+      flex: 1;
+      min-height: 0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 1024px) {
+      .workspace-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       3A. LEFT INSPECTOR PANEL (Clean Surface, Hairline Dividers, Zero Clutter)
+       -------------------------------------------------------------------------- */
+    .inspector {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: clamp(12px, 1.6vh, 18px) clamp(14px, 1.4vw, 20px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    @media (max-width: 1024px) {
+      .inspector {
+        order: 2;
+        overflow: visible;
+        padding: 16px;
+      }
+    }
+
+    .inspector-main {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    @media (max-width: 1024px) {
+      .inspector-main { overflow: visible; }
+    }
+
+    /* 5-Milestone Stepper */
+    .phase-stepper {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+      background: var(--surface-muted);
+      padding: 4px;
+      border-radius: 10px;
+      margin-bottom: clamp(10px, 1.3vh, 14px);
+      flex-shrink: 0;
+    }
+
+    .step-pill {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--ink-muted);
+      padding: clamp(5px, 0.7vh, 7px) 4px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+    .step-pill:hover {
+      color: var(--ink-forest);
+    }
+    .step-pill.active {
+      background: var(--ink-forest);
+      color: #FCFDFB;
+      border-color: var(--gold-warm);
+    }
+
+    .ms-time-label {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--olive-main);
+      margin-bottom: 4px;
+      flex-shrink: 0;
+    }
+
+    .ms-heading {
+      font-size: clamp(15.5px, 2vh, 18.5px);
+      font-weight: 700;
+      color: var(--ink-forest);
+      letter-spacing: -0.015em;
+      line-height: 1.28;
+      margin-bottom: 6px;
+      flex-shrink: 0;
+    }
+
+    .ms-lead {
+      font-size: clamp(11.5px, 1.35vh, 12.6px);
+      color: var(--ink-muted);
+      line-height: 1.48;
+      margin-bottom: clamp(10px, 1.3vh, 14px);
+      max-width: 65ch;
+      flex-shrink: 0;
+    }
+
+    /* 3-Tab Sub-Navigation (Dự án · Chỉ số · Đòn bẩy) */
+    .sub-nav {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      gap: clamp(8px, 2.4vw, 16px);
+      margin-bottom: clamp(8px, 1.1vh, 12px);
+      flex-shrink: 0;
+    }
+
+    .sub-tab {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 6px 2px 8px;
+      margin-bottom: -1px;
+      font-size: clamp(11px, 3vw, 12px);
+      font-weight: 600;
+      color: var(--ink-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.18s ease, border-color 0.18s ease;
+    }
+    .sub-tab:hover {
+      color: var(--ink-forest);
+    }
+    .sub-tab.active {
+      color: var(--ink-forest);
+      border-bottom-color: var(--gold-bronze);
+    }
+
+    .sub-counter {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink-muted);
+    }
+
+    /* Scrollable Detail Stage */
+    .detail-stage {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding-right: 4px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--line-strong) transparent;
+    }
+
+    @media (max-width: 1024px) {
+      .detail-stage {
+        overflow-y: visible;
+        padding-right: 0;
+      }
+    }
+
+    .detail-stage::-webkit-scrollbar { width: 4px; }
+    .detail-stage::-webkit-scrollbar-thumb {
+      background: var(--line-strong);
+      border-radius: 99px;
+    }
+
+    .proj-row {
+      padding: clamp(8px, 1.1vh, 11px) 0;
+      border-bottom: 1px solid var(--surface-muted);
+    }
+    .proj-row:first-child { padding-top: 2px; }
+    .proj-row:last-child { border-bottom: none; padding-bottom: 2px; }
+
+    .proj-top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+
+    .proj-title {
+      font-size: 12.8px;
+      font-weight: 700;
+      color: var(--ink-forest);
+    }
+
+    .proj-owner {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--olive-main);
+      background: var(--olive-soft);
+      padding: 2px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .proj-desc {
+      font-size: 11.8px;
+      color: var(--ink-body);
+      line-height: 1.46;
+      max-width: 66ch;
+    }
+
+    /* KPI Rows */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: 104px 1fr;
+      align-items: center;
+      gap: 12px;
+      padding: clamp(8px, 1.1vh, 11px) 12px;
+      background: var(--surface-muted);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      border-left: 3px solid var(--olive-main);
+    }
+    .kpi-row:last-child { margin-bottom: 0; }
+
+    .kpi-num {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--ink-forest);
+      letter-spacing: -0.02em;
+    }
+
+    .kpi-text {
+      font-size: 11.8px;
+      color: var(--ink-body);
+      line-height: 1.42;
+    }
+
+    /* Impact Cards */
+    .impact-card {
+      padding: 10px 12px;
+      background: var(--surface-muted);
+      border-left: 3px solid var(--gold-bronze);
+      border-radius: 10px;
+      font-size: 12px;
+      color: var(--ink-body);
+      line-height: 1.48;
+      margin-bottom: 8px;
+    }
+    .impact-card:last-child { margin-bottom: 0; }
+    .impact-card strong {
+      color: var(--ink-forest);
+      font-weight: 700;
+    }
+
+    /* Inspector Footer Controls */
+    .inspector-footer {
+      padding-top: clamp(8px, 1.1vh, 12px);
+      margin-top: clamp(6px, 0.9vh, 10px);
+      border-top: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+
+    .inspector-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--ink-forest);
+      transition: background 0.18s ease, border-color 0.18s ease;
+    }
+    .nav-btn:hover {
+      background: var(--surface-muted);
+    }
+
+    .nav-btn.primary {
+      background: var(--ink-forest);
+      border-color: var(--ink-forest);
+      color: #FCFDFB;
+    }
+    .nav-btn.primary:hover {
+      background: var(--olive-main);
+      border-color: var(--olive-main);
+    }
+
+    .wheel-caption {
+      margin-top: 7px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--ink-muted);
+    }
+
+    .mob-return-btn {
+      display: none;
+    }
+
+    @media (max-width: 1024px) {
+      .wheel-caption { display: none; }
+      .mob-return-btn {
+        display: block;
+        width: 100%;
+        margin-top: 8px;
+        padding: 9px 12px;
+        border-radius: 9px;
+        border: 1px solid var(--line-strong);
+        background: var(--surface-muted);
+        color: var(--ink-forest);
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       3B. RIGHT 2/3: MINIMALIST CARTOGRAPHIC ROADMAP CANVAS
+       -------------------------------------------------------------------------- */
+    .map-mobile-caption {
+      display: none;
+    }
+
+    @media (max-width: 1024px) {
+      .map-mobile-caption {
+        order: 0;
+        display: block;
+        text-align: center;
+        font-size: 11.5px;
+        color: var(--ink-muted);
+        margin-bottom: -4px;
+      }
+    }
+
+    .roadmap-viewport {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+      background-color: #EBF1E5;
+      background-image: radial-gradient(#C7D5BE 0.85px, transparent 0.85px);
+      background-size: 22px 22px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      contain: layout style paint;
+      transform: translateZ(0);
+    }
+
+    .roadmap-viewport.dragging {
+      cursor: grabbing;
+    }
+
+    @media (max-width: 1024px) {
+      .roadmap-viewport {
+        order: 1;
+        height: clamp(390px, 52dvh, 460px);
+        touch-action: none;
+        -webkit-user-select: none;
+      }
+    }
+
+    /* Minimal Floating Zoom Pill */
+    .zoom-dock {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      z-index: 25;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(252, 253, 251, 0.94);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 3px 4px;
+      box-shadow: 0 4px 12px rgba(6, 56, 36, 0.08);
+    }
+
+    .zoom-btn {
+      background: transparent;
+      border: none;
+      color: var(--ink-forest);
+      height: 28px;
+      min-width: 28px;
+      padding: 0 8px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.16s ease;
+    }
+    .zoom-btn:hover {
+      background: var(--surface-muted);
+    }
+    .zoom-btn.zoom-label {
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 0 10px;
+      border-left: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      border-radius: 0;
+    }
+
+    /* 1600x760 Vector + HTML Coordinate Stage */
+    .roadmap-stage {
+      width: 1600px;
+      height: 760px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: 0 0;
+      transition: transform 0.44s var(--ease-out);
+    }
+
+    .roadmap-stage.is-moving { will-change: transform; }
+    .roadmap-stage.no-transition { transition: none !important; }
+
+    svg.roadmap-svg {
+      position: absolute;
+      inset: 0;
+      width: 1600px;
+      height: 760px;
+      overflow: visible;
+      shape-rendering: geometricPrecision;
+    }
+
+    /* Architectural Node Cards on Map */
+    .node-card {
+      position: absolute;
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      border-top: 3px solid var(--olive-main);
+      border-radius: 12px;
+      padding: 11px 13px;
+      box-shadow: 0 6px 18px rgba(6, 56, 36, 0.06);
+      z-index: 6;
+      cursor: pointer;
+      transition: opacity 0.25s ease, border-color 0.22s ease;
+    }
+
+    .node-card:hover {
+      border-color: var(--ink-forest);
+    }
+
+    .node-card.tone-gold { border-top-color: var(--gold-bronze); }
+    .node-card.tone-deep { border-top-color: var(--ink-forest); }
+
+    .node-card.selected-node {
+      border-color: var(--ink-forest);
+      border-top-color: var(--gold-bronze);
+      box-shadow: 0 0 0 2px var(--gold-warm), 0 12px 26px rgba(6, 56, 36, 0.14);
+      z-index: 12;
+      opacity: 1 !important;
+    }
+
+    .roadmap-stage.focused-mode .node-card:not(.selected-node),
+    .roadmap-stage.focused-mode .insight-note:not(.selected-node) {
+      opacity: 0.56;
+    }
+
+    .nc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .nc-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--ink-forest);
+      letter-spacing: -0.01em;
+    }
+
+    .nc-pill {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--olive-main);
+      background: var(--surface-muted);
+      border: 1px solid var(--line);
+      padding: 1.5px 7px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .node-card ul {
+      list-style: none;
+      font-size: 10.6px;
+      line-height: 1.4;
+      color: var(--ink-body);
+    }
+
+    .node-card ul li {
+      position: relative;
+      padding-left: 10px;
+      margin-bottom: 3.5px;
+    }
+    .node-card ul li:last-child { margin-bottom: 0; }
+
+    .node-card ul li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--olive-main);
+    }
+
+    .node-card ul li strong {
+      color: var(--ink-forest);
+      font-weight: 600;
+    }
+
+    .nc-more {
+      margin-top: 6px;
+      padding-top: 5px;
+      border-top: 1px solid var(--surface-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 9.8px;
+      font-weight: 600;
+      color: var(--gold-bronze);
+    }
+
+    /* Secondary Strategic Note Boxes on Map */
+    .insight-note {
+      position: absolute;
+      background: #F6F9F2;
+      border: 1px solid var(--line-strong);
+      border-left: 3px solid var(--gold-bronze);
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 10.5px;
+      line-height: 1.4;
+      color: var(--ink-body);
+      z-index: 6;
+      cursor: pointer;
+      transition: opacity 0.25s ease;
+    }
+    .insight-note strong {
+      color: var(--ink-forest);
+      font-weight: 700;
+    }
+
+    .svg-ms-pin {
+      cursor: pointer;
+    }
+    .svg-ms-pin .pin-halo {
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .svg-ms-pin.active-pin .pin-halo,
+    .svg-ms-pin:hover .pin-halo {
+      opacity: 1;
+    }
+
+    /* ==========================================================================
+       4. QUIET ARCHITECTURAL FOOTER STRIP
+       ========================================================================== */
+    .team-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: clamp(6px, 0.9vh, 10px);
+      border-top: 1px solid var(--line);
+      font-size: 11.5px;
+      color: var(--ink-muted);
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+
+    .team-members {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .team-label {
+      font-weight: 700;
+      color: var(--ink-forest);
+    }
+
+    .contact-link {
+      color: var(--ink-forest);
+      font-weight: 600;
+      text-decoration: none;
+      padding: 4px 11px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      transition: border-color 0.18s ease, background 0.18s ease;
+    }
+    .contact-link:hover {
+      background: var(--surface-muted);
+      border-color: var(--ink-forest);
+    }
+
+    /* Floating Return Button on Mobile */
+    .floating-top-btn {
+      position: fixed;
+      bottom: 16px;
+      right: 14px;
+      z-index: 90;
+      background: var(--ink-forest);
+      color: #FCFDFB;
+      border: 1px solid var(--gold-warm);
+      border-radius: 999px;
+      padding: 9px 15px;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 8px 20px rgba(6, 56, 36, 0.25);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .floating-top-btn.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+
+    <!-- ================= 1. MINIMALIST HEADER ================= -->
+    <header class="top-bar">
+      <div class="brand-lockup" onclick="showOverviewMode(true)" title="Xem toàn cảnh lộ trình 3 giai đoạn">
+        <!-- Official Minimalist 12-Ray Đông Sơn Sun Emblem (Pure Inline SVG) -->
+        <svg class="brand-sun-svg" viewBox="-192 -192 384 384" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <radialGradient id="sunDisc" cx="40%" cy="34%" r="68%">
+              <stop offset="0%" stop-color="#13633F"/>
+              <stop offset="58%" stop-color="#063F28"/>
+              <stop offset="100%" stop-color="#012618"/>
+            </radialGradient>
+            <linearGradient id="sunGold" gradientUnits="userSpaceOnUse" x1="-135" y1="-135" x2="135" y2="135">
+              <stop offset="0%" stop-color="#F7E29B"/>
+              <stop offset="35%" stop-color="#DCB254"/>
+              <stop offset="70%" stop-color="#AE7F22"/>
+              <stop offset="100%" stop-color="#E7C36A"/>
+            </linearGradient>
+            <clipPath id="cTop"><rect x="-150" y="-150" width="300" height="150"/></clipPath>
+            <clipPath id="cBot"><rect x="-150" y="0" width="300" height="150"/></clipPath>
+            <mask id="mLeftD" maskUnits="userSpaceOnUse" x="-200" y="-200" width="400" height="400">
+              <rect x="-200" y="-200" width="400" height="400" fill="white"/>
+              <g clip-path="url(#cBot)">
+                <path d="M 60 -66 L 41 -66 A 66 66 0 0 0 41 66 L 60 66 Z" stroke="black" stroke-width="21.8" stroke-linejoin="round" fill="none"/>
+              </g>
+              <rect x="-73" y="-8.4" width="26" height="16.8" fill="black"/>
+            </mask>
+            <mask id="mRightD" maskUnits="userSpaceOnUse" x="-200" y="-200" width="400" height="400">
+              <rect x="-200" y="-200" width="400" height="400" fill="white"/>
+              <g clip-path="url(#cTop)">
+                <path d="M -60 -66 L -41 -66 A 66 66 0 0 1 -41 66 L -60 66 Z" stroke="black" stroke-width="21.8" stroke-linejoin="round" fill="none"/>
+              </g>
+              <rect x="47" y="-8.4" width="26" height="16.8" fill="black"/>
+            </mask>
+          </defs>
+          <!-- 12 Faceted Đông Sơn Sun Lancets + 12 Olive Sunbeams -->
+          <polygon points="136.5,0 147.5,5.8 181,0" fill="#E2B655"/><polygon points="136.5,0 181,0 147.5,-5.8" fill="#9D6E17"/>
+          <line x1="133.3" y1="35.7" x2="154.1" y2="41.3" stroke="#3B7232" stroke-width="3.2" stroke-linecap="round"/>
+          <polygon points="118.2,68.3 124.8,78.8 156.8,90.5" fill="#E2B655"/><polygon points="118.2,68.3 156.8,90.5 130.6,68.7" fill="#9D6E17"/>
+          <line x1="97.6" y1="97.6" x2="112.8" y2="112.8" stroke="#3B7232" stroke-width="3.2" stroke-linecap="round"/>
+          <polygon points="68.3,118.2 68.7,130.6 90.5,156.8" fill="#E2B655"/><polygon points="68.3,118.2 90.5,156.8 78.8,124.8" fill="#9D6E17"/>
+          <line x1="35.7" y1="133.3" x2="41.3" y2="154.1" stroke="#3B7232" stroke-width="3.2" stroke-linecap="round"/>
+          <polygon points="0,136.5 -5.8,147.5 0,181" fill="#E2B655"/><polygon points="0,136.5 0,181 5.8,147.5" fill="#9D6E17"/>
+          <line x1="-35.7" y1="133.3" x2="-41.3" y2="154.1" stroke="#3B7232" stroke-width="3.2" stroke-linecap="round"/>
+          <polygon points="-68.3,118.2 -78.8,124.8 -90.5,156.8" fill="#E2B655"/><polygon points="-68.3,118.2 -90.5,156.8 -68.7,130.6" fill="#9D6E17"/>
+          <line x1="-97.6" y1="97.6" x2="-112.8" y2="112.8" stroke="#3B7232" stroke-width="3.2" stroke-linecap="round"/>
+          <polygon points="-118.2,68.3 -130.6,68.7 -156.8,90.5" fill="#E2B655"/><polygon points="-118.2,68.3 -156.8,90.5 -124.8,78.8" fill="#9D6E17"/>
+          <line x1="-133.3" y1="35.7" x2="-154.1" y2="41.3" stroke="#3B7232" stroke-width="3.2" stroke-linecap="round"/>
+          <polygon points="-136.5,0 -147.5,-5.8 -181,0" fill="#E2B655"/><polygon points="-136.5,0 -181,0 -147.5,5.8" fill="#9D6E17"/>
+          <line x1="-133.3" y1="-35.7" x2="-154.1" y2="-41.3" stroke="#3B7232" stroke-width="3.2" stroke-linecap="round"/>
+          <polygon points="-118.2,-68.3 -124.8,-78.8 -156.8,-90.5" fill="#E2B655"/><polygon points="-118.2,-68.3 -156.8,-90.5 -130.6,-68.7" fill="#9D6E17"/>
+          <line x1="-97.6" y1="-97.6" x2="-112.8" y2="-112.8" stroke="#3B7232" stroke-width="3.2" stroke-linecap="round"/>
+          <polygon points="-68.3,-118.2 -68.7,-130.6 -90.5,-156.8" fill="#E2B655"/><polygon points="-68.3,-118.2 -90.5,-156.8 -78.8,-124.8" fill="#9D6E17"/>
+          <line x1="-35.7" y1="-133.3" x2="-41.3" y2="-154.1" stroke="#3B7232" stroke-width="3.2" stroke-linecap="round"/>
+          <polygon points="0,-136.5 5.8,-147.5 0,-181" fill="#E2B655"/><polygon points="0,-136.5 0,-181 -5.8,-147.5" fill="#9D6E17"/>
+          <line x1="35.7" y1="-133.3" x2="41.3" y2="-154.1" stroke="#3B7232" stroke-width="3.2" stroke-linecap="round"/>
+          <polygon points="68.3,-118.2 78.8,-124.8 90.5,-156.8" fill="#E2B655"/><polygon points="68.3,-118.2 90.5,-156.8 68.7,-130.6" fill="#9D6E17"/>
+          <line x1="97.6" y1="-97.6" x2="112.8" y2="-112.8" stroke="#3B7232" stroke-width="3.2" stroke-linecap="round"/>
+          <polygon points="118.2,-68.3 130.6,-68.7 156.8,-90.5" fill="#E2B655"/><polygon points="118.2,-68.3 156.8,-90.5 124.8,-78.8" fill="#9D6E17"/>
+          <line x1="133.3" y1="-35.7" x2="154.1" y2="-41.3" stroke="#3B7232" stroke-width="3.2" stroke-linecap="round"/>
+          <!-- Medallion & Interlocking Đ-Đ -->
+          <circle cx="0" cy="0" r="127" fill="url(#sunDisc)"/>
+          <circle cx="0" cy="0" r="126.5" stroke="url(#sunGold)" stroke-width="5"/>
+          <circle cx="0" cy="0" r="115" stroke="url(#sunGold)" stroke-width="1.6" opacity="0.85"/>
+          <path d="M -60 -66 L -41 -66 A 66 66 0 0 1 -41 66 L -60 66 Z" stroke="#F6FEF9" stroke-width="11" stroke-linejoin="round" fill="none" mask="url(#mLeftD)"/>
+          <path d="M 60 -66 L 41 -66 A 66 66 0 0 0 41 66 L 60 66 Z" stroke="#F6FEF9" stroke-width="11" stroke-linejoin="round" fill="none" mask="url(#mRightD)"/>
+          <polygon points="-84,0 -75,-4.8 -45,-4.8 -36,0 -45,4.8 -75,4.8" fill="url(#sunGold)"/>
+          <polygon points="84,0 75,-4.8 45,-4.8 36,0 45,4.8 75,4.8" fill="url(#sunGold)"/>
+          <polygon points="0,-19 12,0 0,19 -12,0" fill="#92C846"/>
+          <circle cx="0" cy="0" r="3.4" fill="#F7E29B"/>
+        </svg>
+
+        <div class="brand-titles">
+          <span class="brand-kicker">Hệ sinh thái nông nghiệp đa giá trị · Xã Bình Mỹ, Củ Chi</span>
+          <h1 class="brand-name">
+            Điền Trang Đại Đồng
+            <span class="brand-seed" aria-hidden="true"></span>
+            <span style="font-weight: 500; font-size: 0.76em; color: var(--ink-muted);">Lộ trình 3 giai đoạn</span>
+          </h1>
+        </div>
+      </div>
+
+      <p class="header-thesis">
+        <strong>Cơ chế tự nuôi sống:</strong> Tích lũy uy tín nông sản (Giai đoạn 1) → Mở nhận nuôi cây Crowdfarming &amp; cải tạo kênh rạch, làng nghề (Giai đoạn 2) → Tối đa biên lợi nhuận ẩm thực &amp; lưu trú sinh thái (Giai đoạn 3).
+      </p>
+
+      <div class="header-meta">
+        <span class="group-tag">Nhóm 4 · Restartup</span>
+        <button type="button" class="overview-trigger" id="top-overview-btn" onclick="toggleOverviewZoom()">Xem toàn cảnh</button>
+      </div>
+    </header>
+
+    <!-- ================= 2. SPLIT WORKSPACE ================= -->
+    <main class="workspace-grid">
+
+      <!-- LEFT 1/3: INSPECTOR PANEL -->
+      <aside class="inspector" id="side-info-panel" aria-live="polite">
+        <div class="inspector-main">
+          <nav class="phase-stepper" aria-label="Các cột mốc lộ trình">
+            <button type="button" class="step-pill active" id="ms-dot-1A" onclick="selectMilestone('1A', 0)">1A</button>
+            <button type="button" class="step-pill" id="ms-dot-1B" onclick="selectMilestone('1B', 0)">1B</button>
+            <button type="button" class="step-pill" id="ms-dot-2A" onclick="selectMilestone('2A', 0)">2A</button>
+            <button type="button" class="step-pill" id="ms-dot-2B" onclick="selectMilestone('2B', 0)">2B</button>
+            <button type="button" class="step-pill" id="ms-dot-3" onclick="selectMilestone('3', 0)">GĐ 3</button>
+          </nav>
+
+          <div class="ms-time-label" id="sip-badge">Giai đoạn 1A · Tháng 1 – Tháng 3</div>
+          <h2 class="ms-heading" id="sip-title">Xây dựng hệ thống hỗ trợ nông dân và thói quen tiêu dùng</h2>
+          <p class="ms-lead" id="sip-summary"></p>
+
+          <div class="sub-nav" role="tablist">
+            <button type="button" class="sub-tab active" id="subtab-0" onclick="setSubpart(0)">Dự án vệ tinh</button>
+            <button type="button" class="sub-tab" id="subtab-1" onclick="setSubpart(1)">Chỉ số mục tiêu</button>
+            <button type="button" class="sub-tab" id="subtab-2" onclick="setSubpart(2)">Đòn bẩy liên kết</button>
+            <span class="sub-counter" id="subpart-counter">1 / 3</span>
+          </div>
+
+          <div class="detail-stage" id="subpart-stage">
+            <div id="subpart-body"></div>
+          </div>
+        </div>
+
+        <div class="inspector-footer">
+          <div class="inspector-btns">
+            <button type="button" class="nav-btn" onclick="stepSubpart(-1)">← Phần trước</button>
+            <button type="button" class="nav-btn primary" id="sip-next-btn" onclick="stepSubpart(1)">Chỉ số mục tiêu →</button>
+          </div>
+          <button type="button" class="mob-return-btn" onclick="jumpBackToTimeline()">↑ Trở lại bản đồ lộ trình</button>
+          <div class="wheel-caption">Cuộn chuột hoặc nhấn phím ← → để chuyển qua từng cột mốc (1A → GĐ 3)</div>
+        </div>
+      </aside>
+
+      <div class="map-mobile-caption" aria-hidden="true">
+        Chạm chọn mốc trên bản đồ · Kéo 1 ngón hoặc chụm 2 ngón để thu phóng
+      </div>
+
+      <!-- RIGHT 2/3: MINIMALIST CARTOGRAPHIC TIMELINE -->
+      <div class="roadmap-viewport" id="roadmap-viewport">
+        <div class="zoom-dock" id="roadmap-zoom-controls">
+          <button type="button" class="zoom-btn" onclick="stepZoom(-1)" title="Thu nhỏ" aria-label="Thu nhỏ">−</button>
+          <button type="button" class="zoom-btn zoom-label" id="rz-overview-btn" onclick="toggleOverviewZoom()">Toàn cảnh</button>
+          <button type="button" class="zoom-btn" onclick="stepZoom(1)" title="Phóng to" aria-label="Phóng to">+</button>
+        </div>
+
+        <div class="roadmap-stage focused-mode" id="roadmap-stage">
+          <svg class="roadmap-svg" viewBox="0 0 1600 760" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="riverFlow" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#4F782F"/>
+                <stop offset="32%" stop-color="#1E663B"/>
+                <stop offset="55%" stop-color="#B88928"/>
+                <stop offset="78%" stop-color="#14583D"/>
+                <stop offset="100%" stop-color="#063824"/>
+              </linearGradient>
+
+              <marker id="arrowGold" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#A8791E"/>
+              </marker>
+              <marker id="arrowOlive" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#3E6B2C"/>
+              </marker>
+            </defs>
+
+            <!-- Quiet Saigon River Contour Whisper -->
+            <path d="M 0 448 C 280 545, 520 275, 800 450 C 1080 620, 1320 265, 1600 355" fill="none" stroke="#D5E0CE" stroke-width="1.2"/>
+
+            <!-- Organic Saigon River Living-Flow Ribbon Weaving Across 5 Milestones -->
+            <path d="M 48 456 C 120 518, 250 518, 339 410 C 428 302, 556 302, 643 410 C 730 518, 860 518, 947 410 C 1034 302, 1164 302, 1251 410 C 1332 512, 1435 512, 1504 410 C 1526 376, 1542 356, 1556 348"
+                  fill="none" stroke="url(#riverFlow)" stroke-width="4.5" stroke-linecap="round" opacity="0.88"/>
+
+            <!-- Cross-Phase Loop 1 (Top Gold): 2A (799, 272) -> Phase 3 (1418, 168) -->
+            <path d="M 799 272 L 799 112 Q 799 92 819 92 L 1398 92 Q 1418 92 1418 112 L 1418 164"
+                  fill="none" stroke="#A8791E" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrowGold)"/>
+            <circle cx="799" cy="272" r="4.5" fill="#FCFDFB" stroke="#A8791E" stroke-width="2"/>
+
+            <g transform="translate(866, 78)">
+              <rect x="0" y="0" width="486" height="28" rx="14" fill="#FCFDFB" stroke="#D8AE4E" stroke-width="1.4"/>
+              <text x="243" y="18" fill="#063824" font-size="10.5" font-weight="600" text-anchor="middle">
+                Đòn bẩy 2A → Giai đoạn 3: Nuôi cây tặng kỳ nghỉ 2N1Đ kéo khách về Điền Trang
+              </text>
+            </g>
+
+            <!-- Cross-Phase Loop 2 (Bottom Olive): 2B (1099, 438) -> 1A (214, 486) -->
+            <path d="M 1099 438 L 1099 676 Q 1099 696 1079 696 L 382 696 Q 362 696 362 676 L 362 506 Q 362 486 342 486 L 218 486"
+                  fill="none" stroke="#3E6B2C" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrowOlive)"/>
+            <circle cx="1099" cy="438" r="4.5" fill="#FCFDFB" stroke="#3E6B2C" stroke-width="2"/>
+
+            <g transform="translate(486, 682)">
+              <rect x="0" y="0" width="510" height="28" rx="14" fill="#FCFDFB" stroke="#82C341" stroke-width="1.4"/>
+              <text x="255" y="18" fill="#063824" font-size="10.5" font-weight="600" text-anchor="middle">
+                Tuần hoàn sinh khối: Phân hữu cơ lục bình Eco Hub (2B) cấp ngược giá rẻ (-30%) cho Agri Hub (1A)
+              </text>
+            </g>
+
+            <!-- 5 Minimalist Architectural Timeline Segments (Y = 384..436) -->
+            <g style="cursor:pointer;" data-ms="1A">
+              <rect x="48" y="384" width="284" height="52" rx="10" fill="#467231" stroke="#063824" stroke-width="1"/>
+              <text x="190" y="405" fill="#E4F2DA" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="0.03em">Giai đoạn 1A · Khởi động hệ thống</text>
+              <text x="190" y="423" fill="#FCFDFB" font-size="13" font-weight="700" text-anchor="middle">Agri Hub &amp; Bao Tiêu Xanh</text>
+            </g>
+
+            <g style="cursor:pointer;" data-ms="1B">
+              <rect x="346" y="384" width="290" height="52" rx="10" fill="#23613B" stroke="#063824" stroke-width="1"/>
+              <text x="491" y="405" fill="#DCEFE3" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="0.03em">Giai đoạn 1B · Minh bạch nguồn gốc</text>
+              <text x="491" y="423" fill="#FCFDFB" font-size="13" font-weight="700" text-anchor="middle">FreshTransit &amp; GreenID</text>
+            </g>
+
+            <g style="cursor:pointer;" data-ms="2A">
+              <rect x="650" y="384" width="290" height="52" rx="10" fill="#9A701C" stroke="#7A5610" stroke-width="1"/>
+              <text x="795" y="405" fill="#FDF3DA" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="0.03em">Giai đoạn 2A · Thu hút vốn đầu tư</text>
+              <text x="795" y="423" fill="#FCFDFB" font-size="13" font-weight="700" text-anchor="middle">Crowdfarming &amp; Giỏ quà B2B</text>
+            </g>
+
+            <g style="cursor:pointer;" data-ms="2B">
+              <rect x="954" y="384" width="290" height="52" rx="10" fill="#13533B" stroke="#063824" stroke-width="1"/>
+              <text x="1099" y="405" fill="#D9EFE5" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="0.03em">Giai đoạn 2B · Cải tạo &amp; làng nghề</text>
+              <text x="1099" y="423" fill="#FCFDFB" font-size="13" font-weight="700" text-anchor="middle">BioFlow, Eco Hub &amp; Nối Nghề</text>
+            </g>
+
+            <g style="cursor:pointer;" data-ms="3">
+              <rect x="1258" y="384" width="294" height="52" rx="10" fill="#063824" stroke="#DCB254" stroke-width="1.8"/>
+              <text x="1405" y="405" fill="#F2D98D" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="0.03em">Giai đoạn 3 · Tối đa lợi nhuận</text>
+              <text x="1405" y="423" fill="#FCFDFB" font-size="13" font-weight="700" text-anchor="middle">KDL Điền Trang Đại Đồng</text>
+            </g>
+
+            <!-- Connectors Between Segments -->
+            <g stroke="#8FA586" stroke-width="1.6" stroke-linecap="round">
+              <line x1="334" y1="410" x2="344" y2="410"/>
+              <line x1="638" y1="410" x2="648" y2="410"/>
+              <line x1="942" y1="410" x2="952" y2="410"/>
+              <line x1="1246" y1="410" x2="1256" y2="410"/>
+            </g>
+
+            <!-- Milestone Medallion Pins on River Curve -->
+            <g class="svg-ms-pin active-pin" id="svg-pin-1A" data-ms="1A">
+              <circle class="pin-halo" cx="190" cy="486" r="28" fill="rgba(216,174,78,0.28)" stroke="#D8AE4E" stroke-width="1.5"/>
+              <circle cx="190" cy="486" r="20" fill="#063824" stroke="#DCB254" stroke-width="3"/>
+              <text x="190" y="490.5" fill="#F6FEF9" font-size="12.5" font-weight="700" text-anchor="middle">1A</text>
+            </g>
+
+            <g class="svg-ms-pin" id="svg-pin-1B" data-ms="1B">
+              <circle class="pin-halo" cx="491" cy="334" r="28" fill="rgba(216,174,78,0.28)" stroke="#D8AE4E" stroke-width="1.5"/>
+              <circle cx="491" cy="334" r="20" fill="#063824" stroke="#DCB254" stroke-width="3"/>
+              <text x="491" y="338.5" fill="#F6FEF9" font-size="12.5" font-weight="700" text-anchor="middle">1B</text>
+            </g>
+
+            <g class="svg-ms-pin" id="svg-pin-2A" data-ms="2A">
+              <circle class="pin-halo" cx="795" cy="486" r="28" fill="rgba(216,174,78,0.28)" stroke="#D8AE4E" stroke-width="1.5"/>
+              <circle cx="795" cy="486" r="20" fill="#8C6314" stroke="#F5DF98" stroke-width="3"/>
+              <text x="795" y="490.5" fill="#FCFDFB" font-size="12.5" font-weight="700" text-anchor="middle">2A</text>
+            </g>
+
+            <g class="svg-ms-pin" id="svg-pin-2B" data-ms="2B">
+              <circle class="pin-halo" cx="1099" cy="334" r="28" fill="rgba(216,174,78,0.28)" stroke="#D8AE4E" stroke-width="1.5"/>
+              <circle cx="1099" cy="334" r="20" fill="#063824" stroke="#DCB254" stroke-width="3"/>
+              <text x="1099" y="338.5" fill="#F6FEF9" font-size="12.5" font-weight="700" text-anchor="middle">2B</text>
+            </g>
+
+            <g class="svg-ms-pin" id="svg-pin-3" data-ms="3">
+              <circle class="pin-halo" cx="1405" cy="486" r="28" fill="rgba(216,174,78,0.28)" stroke="#D8AE4E" stroke-width="1.5"/>
+              <circle cx="1405" cy="486" r="20" fill="#063824" stroke="#DCB254" stroke-width="3"/>
+              <text x="1405" y="490.5" fill="#F6FEF9" font-size="13" font-weight="700" text-anchor="middle">3</text>
+            </g>
+
+            <!-- Harvest Sun Endpoint Node -->
+            <g class="svg-ms-pin" data-ms="3">
+              <circle cx="1556" cy="348" r="15" fill="#063824" stroke="#DCB254" stroke-width="2.5"/>
+              <polygon points="1556,339 1561.5,348 1556,357 1550.5,348" fill="#82C341"/>
+            </g>
+          </svg>
+
+          <!-- ================= HTML ARCHITECTURAL NODE CARDS ================= -->
+          <!-- 1A -->
+          <div class="node-card selected-node" data-ms="1A" style="left: 44px; top: 162px; width: 300px;">
+            <div class="nc-header">
+              <span class="nc-title">1A. Agri Hub &amp; Bao Tiêu Xanh</span>
+              <span class="nc-pill">Tháng 1–3</span>
+            </div>
+            <ul>
+              <li><strong>Agri Hub (Nông dân):</strong> Gom đơn mua sỉ phân bón, nông cụ giảm <strong>10–20%</strong>; giao diện chữ lớn dễ thao tác.</li>
+              <li><strong>Bao Tiêu Xanh (Khách):</strong> Đặt trước nông sản tuần/tháng; có gói tiết kiệm tiêu thụ nông sản xấu mã.</li>
+              <li><strong>HTX Bình Mỹ:</strong> Kiểm định chất lượng tập trung; dự án thu <strong>8–10%</strong> phí vận hành.</li>
+            </ul>
+            <div class="nc-more">
+              <span>Xem 3 dự án &amp; chỉ số</span>
+              <span>→</span>
+            </div>
+          </div>
+
+          <div class="node-card selected-node" data-ms="1A" style="left: 44px; top: 522px; width: 300px;">
+            <div class="nc-header">
+              <span class="nc-title">Nền tảng uy tín xã Bình Mỹ</span>
+              <span class="nc-pill">Vốn 40 triệu</span>
+            </div>
+            <ul>
+              <li><strong>Tối ưu nguồn lực:</strong> Nhóm tự phát triển In-house 3 ứng dụng, liên kết trực tiếp HTX Bình Mỹ.</li>
+              <li><strong>Trọng tâm Giai đoạn 1:</strong> Tích lũy <strong>danh tiếng &amp; niềm tin thực tế</strong> trước khi mở nhận nuôi cây.</li>
+            </ul>
+          </div>
+
+          <!-- 1B -->
+          <div class="node-card" data-ms="1B" style="left: 350px; top: 120px; width: 296px;">
+            <div class="nc-header">
+              <span class="nc-title">1B. FreshTransit &amp; GreenID</span>
+              <span class="nc-pill">Minh bạch 100%</span>
+            </div>
+            <ul>
+              <li><strong>FreshTransit:</strong> Thuê dân địa phương chở nông sản từ hẻm nhỏ (&lt;2m) bằng <strong>thùng mát &amp; sọt chống dập</strong> lên TP.HCM (45 phút).</li>
+              <li><strong>GreenID (Zero-App):</strong> Chip NFC &amp; khóa Zip-tag mở ngay nhật ký canh tác trên <strong>Zalo Mini Web</strong>.</li>
+            </ul>
+            <div class="nc-more">
+              <span>Xem đòn bẩy uy tín</span>
+              <span>→</span>
+            </div>
+          </div>
+
+          <div class="insight-note" data-ms="1B" style="left: 356px; top: 458px; width: 282px;">
+            <strong>Bàn đạp sang Giai đoạn 2:</strong><br/>
+            Khi khách thành phố đã ăn thử rau quả Bình Mỹ tươi ngon và tin tưởng tem <strong>GreenID</strong>, xã mới đủ uy tín để mở <strong>Crowdfarming</strong>.
+          </div>
+
+          <!-- 2A -->
+          <div class="insight-note" data-ms="2A" style="left: 656px; top: 272px; width: 286px;">
+            <strong>Vì sao đặt Crowdfarming ở Giai đoạn 2?</strong><br/>
+            Nhận nuôi cây trả tiền trước đòi hỏi <strong>niềm tin lớn</strong>. Đặt sau Giai đoạn 1 giúp tỷ lệ chuyển đổi tăng vượt trội nhờ uy tín sẵn có.
+          </div>
+
+          <div class="node-card tone-gold" data-ms="2A" style="left: 646px; top: 522px; width: 312px;">
+            <div class="nc-header">
+              <span class="nc-title">2A. Crowdfarming &amp; Quà B2B</span>
+              <span class="nc-pill">Tháng 4–8</span>
+            </div>
+            <ul>
+              <li><strong>Nhận nuôi cây (GreenBinhMy + NFC):</strong> Thu hút khách trung lưu nhận nuôi cây ăn trái rễ sâu giữ đất bờ sông Sài Gòn.</li>
+              <li><strong>Gói 1 triệu/năm &amp; theo mùa:</strong> Trích <strong>10% vào Quỹ dự phòng HTX</strong>, bảo hiểm cây 1:1 và tặng kỳ nghỉ <strong>2N1Đ</strong>.</li>
+            </ul>
+            <div class="nc-more">
+              <span>Xem dòng tiền &amp; đòn bẩy</span>
+              <span>→</span>
+            </div>
+          </div>
+
+          <!-- 2B -->
+          <div class="node-card" data-ms="2B" style="left: 956px; top: 120px; width: 308px;">
+            <div class="nc-header">
+              <span class="nc-title">2B. BioFlow, Eco Hub &amp; Nối Nghề</span>
+              <span class="nc-pill">Tháng 6–12</span>
+            </div>
+            <ul>
+              <li><strong>BioFlow &amp; Eco Hub:</strong> Máy vớt lục bình tự động trên rạch thí điểm → Ủ phân vi sinh rẻ hơn 30% và mở <strong>Workshop miễn phí</strong>.</li>
+              <li><strong>Nối Nghề:</strong> Ứng dụng học đan lát, dựng <strong>Nhà thủ công Showcase</strong> và đào tạo hộ dân chuẩn đón khách.</li>
+            </ul>
+            <div class="nc-more">
+              <span>Xem vòng lặp sinh khối</span>
+              <span>→</span>
+            </div>
+          </div>
+
+          <!-- 3 -->
+          <div class="node-card tone-deep" data-ms="3" style="left: 1272px; top: 168px; width: 292px;">
+            <div class="nc-header">
+              <span class="nc-title">3. KDL Điền Trang Đại Đồng</span>
+              <span class="nc-pill">Tháng 12+</span>
+            </div>
+            <ul>
+              <li><strong>Trọng tâm doanh thu:</strong> Đón du khách sinh thái chi tiêu cho <strong>ẩm thực ven sông (F&amp;B)</strong> và lưu trú 2N1Đ.</li>
+              <li><strong>Vận hành linh hoạt:</strong> Tự khai thác <strong>In-house</strong> hoặc hợp tác đối tác thứ ba.</li>
+              <li><strong>Ít vốn – Biên lãi cao:</strong> Thừa hưởng trọn vẹn hạ tầng tự nuôi sống từ 8 dự án vệ tinh.</li>
+            </ul>
+            <div class="nc-more">
+              <span>Xem vòng lặp khép kín</span>
+              <span>→</span>
+            </div>
+          </div>
+
+          <div class="node-card tone-deep" data-ms="3" style="left: 1260px; top: 522px; width: 304px;">
+            <div class="nc-header">
+              <span class="nc-title">Vòng lặp giữ chân khách hàng</span>
+              <span class="nc-pill">Khép kín</span>
+            </div>
+            <ul>
+              <li>Đặt rau sạch định kỳ (GĐ 1) → Nhận nuôi cây &amp; nhận vé 2N1Đ (GĐ 2A) → Về thưởng thức F&amp;B, trải nghiệm Eco Hub &amp; làng nghề (GĐ 3).</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ================= 3. QUIET FOOTER STRIP ================= -->
+    <footer class="team-strip">
+      <div class="team-members">
+        <span class="team-label">Nhóm 4 · Restartup (N11_SKL116_HK1A_26.27):</span>
+        <span>Châu Nhật Thành · Lê Huỳnh Hậu · Hồ Quang Nhật · Huỳnh Thị Kim Chi · Huỳnh Ngọc Trân · Nguyễn Minh Thanh · Phan Hoàng Vân Anh · Phan Dương Kỳ Thăng</span>
+      </div>
+      <a class="contact-link" href="mailto:Thanhdz6dz@gmail.com">Liên hệ: Thanhdz6dz@gmail.com</a>
+    </footer>
+
+    <button type="button" class="floating-top-btn" id="floating-back-btn" onclick="jumpBackToTimeline()">
+      ↑ Lên bản đồ lộ trình
+    </button>
+
+  </div>
+
+  <!-- ================= 4. INTERACTIVE CAMERA & INSPECTOR ENGINE ================= -->
+  <script>
+    const MILESTONE_DATA = {
+      '1A': {
+        badge: 'Giai đoạn 1A · Tháng 1 – Tháng 3 · Khởi động hệ thống',
+        title: '1A. Xây dựng hệ thống hỗ trợ nông dân và tạo thói quen tiêu dùng',
+        summary: 'Giải quyết trực tiếp bài toán thương lái ép giá tại Bình Mỹ bằng bộ đôi Agri Hub (tối ưu đầu vào) và Bao Tiêu Xanh (tối đa đầu ra) dưới sự bảo chứng chất lượng của HTX Nông nghiệp Bình Mỹ.',
+        camera: { x: 280, y: 408, scale: 1.84 },
+        mobileCamera: { x: 196, y: 408 },
+        projects: [
+          {
+            name: '1. Ứng dụng Agri Hub (Dành cho nông dân)',
+            owner: 'Hồ Quang Nhật',
+            desc: 'Gom đơn mua chung phân bón, nông cụ để lấy giá sỉ trực tiếp từ nhà máy. Tích hợp đặt lịch thu hoạch cho FreshTransit đến tận vườn và ghi nhận nhật ký chăm sóc với giao diện chữ lớn dễ dùng.'
+          },
+          {
+            name: '2. Ứng dụng Bao Tiêu Xanh (Dành cho khách hàng)',
+            owner: 'Lê Huỳnh Hậu',
+            desc: 'Đặt trước nông sản sạch theo ngày, tuần hoặc tháng. Tích hợp gói "Lựa chọn tiết kiệm" giúp tiêu thụ trọn vẹn nông sản ngoại hình chưa đẹp nhưng đạt chuẩn an toàn.'
+          },
+          {
+            name: '3. Liên kết HTX Nông nghiệp Bình Mỹ',
+            owner: 'Nhóm 4 × HTX',
+            desc: 'HTX đứng ra tập hợp, kiểm định chất lượng nông sản xã viên và thành lập Quỹ dự phòng hỗ trợ bà con tái đầu tư khi gặp rủi ro thời tiết.'
+          }
+        ],
+        goals: [
+          { metric: '10–20%', text: 'Giảm chi phí vật tư nông nghiệp đầu vào nhờ gom đơn mua sỉ tận gốc.' },
+          { metric: '~60%', text: 'Tăng thu nhập ổn định cho nông hộ liên kết nhờ bỏ khâu ép giá và bán được nông sản xấu mã.' },
+          { metric: '~28%', text: 'Mở rộng tệp hộ gia đình TP.HCM đặt lịch mua rau củ định kỳ hàng tuần.' }
+        ],
+        impactHtml: `
+          <div class="impact-card">
+            <strong>1. Tạo lịch gom hàng cố định cho Giai đoạn 1B (FreshTransit):</strong><br/>
+            Nông dân báo sản lượng trên Agri Hub và khách đặt trước trên Bao Tiêu Xanh giúp đội xe FreshTransit biết chính xác khối lượng cần lấy tại từng hẻm, không chạy xe rỗng.
+          </div>
+          <div class="impact-card">
+            <strong>2. Tích lũy uy tín thương hiệu cho Giai đoạn 2 (Crowdfarming):</strong><br/>
+            Khách hàng thành phố trải nghiệm nông sản Bình Mỹ đều đặn mỗi tuần, hình thành niềm tin thực tế trước khi quyết định nhận nuôi cây dài hạn.
+          </div>
+        `
+      },
+      '1B': {
+        badge: 'Giai đoạn 1B · Tháng 1 – Tháng 3 · Vận chuyển & định danh số',
+        title: '1B. Trạm trung chuyển hẻm nhỏ FreshTransit và định danh GreenID',
+        summary: 'Khép kín khâu vận chuyển chống dập nát từ các tuyến hẻm dưới 2m tại xã Bình Mỹ lên TP.HCM (45 phút) và minh bạch 100% nguồn gốc nông sản qua chip NFC không cần cài ứng dụng.',
+        camera: { x: 505, y: 338, scale: 1.84 },
+        mobileCamera: { x: 496, y: 338 },
+        projects: [
+          {
+            name: '1. Bình Mỹ FreshTransit (Logistics hẻm nhỏ)',
+            owner: 'Nguyễn Minh Thanh',
+            desc: 'Thuê người dân địa phương vận chuyển nông sản từ hẻm nhỏ (<2m) ra trạm tập kết và giao lên TP.HCM bằng thùng mát, sọt chống dập chuyên dụng kết hợp giao nhanh Ahamove.'
+          },
+          {
+            name: '2. GreenID — Hộ chiếu số cây trồng (Zero-App)',
+            owner: 'Châu Nhật Thành',
+            desc: 'Ứng dụng 500 chip NFC và khóa niêm phong Zip-tag chống làm giả. Người mua chạm điện thoại là mở ngay hồ sơ canh tác trực tiếp trên Zalo Mini Web.'
+          }
+        ],
+        goals: [
+          { metric: '5–15%', text: 'Giảm tỷ lệ hao hụt, dập nát nông sản nhờ sọt chuyên dụng, thùng mát và tối giản khâu bốc dỡ.' },
+          { metric: '100%', text: 'Đơn hàng nông sản và giỏ quà xuất trạm Bình Mỹ đều có mã định danh truy xuất nguồn gốc.' },
+          { metric: '< 0,5 giây', text: 'Thời gian chạm thẻ NFC hiển thị nhật ký canh tác trên Zalo Mini Web, không cần tải app.' }
+        ],
+        impactHtml: `
+          <div class="impact-card">
+            <strong>Đòn bẩy mở khóa Giai đoạn 2 (Crowdfarming):</strong><br/>
+            Mô hình nhận nuôi cây trả tiền trước đòi hỏi sự tin cậy rất cao. Nhờ FreshTransit giữ trọn độ tươi và GreenID minh bạch từng lô hàng suốt Giai đoạn 1, nông sản Bình Mỹ có đủ uy tín để khách tự tin xuống tiền nhận nuôi cây ở Giai đoạn 2A.
+          </div>
+        `
+      },
+      '2A': {
+        badge: 'Giai đoạn 2A · Tháng 4 – Tháng 8 · Thu hút vốn đầu tư',
+        title: '2A. Mở mô hình nhận nuôi cây Crowdfarming và giỏ quà B2B',
+        summary: 'Từ nền tảng uy tín Giai đoạn 1, dự án triển khai gói nhận nuôi cây ăn trái rễ sâu giữ đất bờ sông Sài Gòn (GreenBinhMy × NFC GreenID) và dòng giỏ quà hữu cơ doanh nghiệp.',
+        camera: { x: 802, y: 472, scale: 1.84 },
+        mobileCamera: { x: 800, y: 475 },
+        projects: [
+          {
+            name: '1. Crowdfarming nhận nuôi cây (GreenBinhMy × GreenID)',
+            owner: 'Kim Chi × Nhật Thành',
+            desc: 'Khách hàng trung lưu nhận nuôi gốc cây ăn trái rễ sâu chống sạt lở bờ sông theo gói năm (1.000.000đ/năm) hoặc gói mùa. Mỗi cây gắn chip NFC định danh tên người nuôi.'
+          },
+          {
+            name: '2. Quỹ dự phòng HTX & bảo hiểm cây 1:1',
+            owner: 'HTX Bình Mỹ',
+            desc: 'Trích 10% doanh thu Crowdfarming vào Quỹ dự phòng hỗ trợ nông hộ khi thời tiết bất lợi; duy trì vườn cây dự phòng để bù 1:1 nếu cây gặp sự cố.'
+          },
+          {
+            name: '3. Giỏ quà trái cây hữu cơ B2B',
+            owner: 'Nhóm 4',
+            desc: 'Giỏ quà nông sản sạch đan từ mây tre, lục bình địa phương kèm khóa NFC GreenID dành cho doanh nghiệp biếu tặng đối tác dịp Lễ, Tết.'
+          }
+        ],
+        goals: [
+          { metric: '1 triệu/năm', text: 'Mang lại nguồn vốn ứng trước đầu vụ cho nhà vườn mà không phụ thuộc tín dụng đen.' },
+          { metric: '10% Quỹ', text: 'Trích lập Quỹ dự phòng HTX bảo vệ sinh kế nông dân và cam kết an toàn quyền lợi người nuôi cây.' },
+          { metric: 'Tặng 2N1Đ', text: 'Khách nhận nuôi cây theo năm nhận đặc quyền kỳ nghỉ trải nghiệm 2 ngày 1 đêm tại địa phương.' }
+        ],
+        impactHtml: `
+          <div class="impact-card">
+            <strong>1. Cấp vốn tự chủ cho Giai đoạn 2B (BioFlow &amp; Eco Hub):</strong><br/>
+            Dòng tiền thu trước từ Crowdfarming và đơn hàng quà tặng B2B tạo ngân sách chế tạo máy vớt lục bình BioFlow và dựng trạm ủ phân Eco Hub mà không cần vay nợ.
+          </div>
+          <div class="impact-card">
+            <strong>2. Đòn bẩy kéo khách tự nhiên sang Giai đoạn 3:</strong><br/>
+            Vé tặng nghỉ dưỡng 2N1Đ biến mỗi chủ nhân nuôi cây ở Giai đoạn 2A thành tệp du khách chắc chắn về thăm vườn và chi tiêu ẩm thực F&amp;B ở Giai đoạn 3.
+          </div>
+        `
+      },
+      '2B': {
+        badge: 'Giai đoạn 2B · Tháng 6 – Tháng 12 · Cải tạo sinh thái & làng nghề',
+        title: '2B. Máy vớt bèo BioFlow, trạm phân bón Eco Hub và làng nghề Nối Nghề',
+        summary: 'Triển khai chuỗi dự án vệ tinh làm sạch cảnh quan kênh rạch, tự chủ nguồn phân hữu cơ vi sinh giá rẻ và chuẩn hóa tay nghề đón khách du lịch cho cộng đồng địa phương.',
+        camera: { x: 1105, y: 318, scale: 1.84 },
+        mobileCamera: { x: 1106, y: 292 },
+        projects: [
+          {
+            name: '1. Hệ thống vớt lục bình tự động BioFlow',
+            owner: 'Huỳnh Ngọc Trân',
+            desc: 'Đề xuất UBND xã Bình Mỹ cấp đoạn rạch thí điểm vận hành máy vớt lục bình năng lượng mặt trời, khơi thông dòng chảy và thu sinh khối 0 đồng.'
+          },
+          {
+            name: '2. Trạm tuần hoàn sinh khối Eco Hub Bình Mỹ',
+            owner: 'Phan Hoàng Vân Anh',
+            desc: 'Ủ lục bình từ BioFlow cùng phụ phẩm nông nghiệp bằng nấm đối kháng Trichoderma thành phân hữu cơ rẻ hơn 30%, kết hợp không gian Workshop trồng cây miễn phí.'
+          },
+          {
+            name: '3. Ứng dụng Nối Nghề & chuẩn hóa đón khách',
+            owner: 'Phan Dương Kỳ Thăng',
+            desc: 'Phối hợp HTX Làng nghề số hóa bài học đan lát truyền thống, dựng Nhà thủ công Showcase và tập huấn quy trình đón tiếp du khách cho hộ dân.'
+          }
+        ],
+        goals: [
+          { metric: '-30% giá', text: 'Phân hữu cơ từ Eco Hub cấp ngược lại cho Agri Hub (GĐ 1A), tiếp tục hạ chi phí canh tác.' },
+          { metric: '0đ mặt bằng', text: 'Đổi giá trị làm sạch kênh rạch cùng địa phương để tối ưu chi phí mặt bằng bãi tập kết và trạm ủ.' },
+          { metric: '100% chuẩn', text: 'Hộ dân và nghệ nhân trên tuyến tham quan hoàn thành đào tạo tiêu chuẩn dịch vụ du lịch.' }
+        ],
+        impactHtml: `
+          <div class="impact-card">
+            <strong>1. Khép kín vòng lặp vật tư về Giai đoạn 1A:</strong><br/>
+            Phân hữu cơ vi sinh từ Eco Hub quay lại nuôi dưỡng các vườn rau Bao Tiêu Xanh và vườn cây ăn trái Crowdfarming với chi phí thấp nhất.
+          </div>
+          <div class="impact-card">
+            <strong>2. Hoàn thiện hạ tầng trải nghiệm cho Giai đoạn 3 không tốn vốn lớn:</strong><br/>
+            Kênh rạch thông thoáng (BioFlow), trạm trải nghiệm xanh (Eco Hub) và Nhà thủ công làng nghề (Nối Nghề) tạo sẵn điểm đến hoàn chỉnh trước khi mở khu du lịch.
+          </div>
+        `
+      },
+      '3': {
+        badge: 'Giai đoạn 3 · Tháng 12+ · Tối đa hóa biên lợi nhuận',
+        title: '3. Khu du lịch sinh thái ven sông Điền Trang Đại Đồng (F&B & lưu trú)',
+        summary: 'Điểm rơi thu hoạch lợi nhuận với chi phí đầu tư thấp nhất: Đón khách từ vé tặng 2N1Đ Crowdfarming và du khách TP.HCM về thưởng thức ẩm thực ven sông, tham gia Eco Hub và làng nghề.',
+        camera: { x: 1320, y: 408, scale: 1.84 },
+        mobileCamera: { x: 1410, y: 408 },
+        projects: [
+          {
+            name: '1. Tổ hợp ẩm thực ven sông (F&B) & lưu trú sinh thái 2N1Đ',
+            owner: 'Nhóm 4 (In-house / Đối tác)',
+            desc: 'Khai thác ẩm thực chế biến trực tiếp từ nông sản sạch tại vườn và lưu trú nghỉ dưỡng ven sông Sài Gòn (45 phút từ trung tâm TP.HCM). Linh hoạt tự vận hành hoặc hợp tác bên thứ ba.'
+          },
+          {
+            name: '2. Tuyến trải nghiệm khép kín: Thăm cây – Eco Hub – Nối Nghề',
+            owner: 'Toàn hệ sinh thái',
+            desc: 'Du khách tự tay thu hoạch trái trên gốc cây mình nhận nuôi gắn NFC GreenID, trải nghiệm ủ phân trồng cây tại Eco Hub và đan lát cùng nghệ nhân địa phương.'
+          }
+        ],
+        goals: [
+          { metric: 'Biên lãi cao', text: 'Dịch vụ ẩm thực F&B và lưu trú nghỉ dưỡng mang lại nguồn thu ròng chủ lực cho toàn dự án.' },
+          { metric: 'Tối giản vốn', text: 'Không phải đầu tư bê tông hóa tốn kém nhờ kế thừa trọn vẹn hệ sinh thái tự vận hành từ Giai đoạn 1 & 2.' },
+          { metric: 'Tự nuôi sống', text: 'Du khách trải nghiệm thực tế hài lòng lại quay về đặt rau hàng tuần (GĐ 1) và nhận nuôi thêm cây (GĐ 2).' }
+        ],
+        impactHtml: `
+          <div class="impact-card">
+            <strong>Vòng lặp tự nuôi sống hoàn chỉnh:</strong><br/>
+            Giai đoạn 1 tạo thói quen tiêu dùng và uy tín → Giai đoạn 2 huy động vốn Crowdfarming, làm sạch môi trường và dựng nền móng làng nghề → Giai đoạn 3 tối đa lợi nhuận từ F&amp;B, du lịch và chuyển hóa du khách ngược lại thành khách hàng định kỳ của Giai đoạn 1.
+          </div>
+        `
+      }
+    };
+
+    const ORDER = ['1A', '1B', '2A', '2B', '3'];
+    const NEXT_TAB_LABELS = ['Chỉ số mục tiêu →', 'Đòn bẩy liên kết →'];
+    let currentMilestone = '1A';
+    let currentSubpart = 0;
+    let isOverviewMode = false;
+
+    const viewport = document.getElementById('roadmap-viewport');
+    const stage = document.getElementById('roadmap-stage');
+    const sipBadgeEl = document.getElementById('sip-badge');
+    const sipTitleEl = document.getElementById('sip-title');
+    const sipSummaryEl = document.getElementById('sip-summary');
+    const subpartStageEl = document.getElementById('subpart-stage');
+    const subpartCounterEl = document.getElementById('subpart-counter');
+    const subpartBodyEl = document.getElementById('subpart-body');
+    const sipNextBtnEl = document.getElementById('sip-next-btn');
+    const rzOverviewBtn = document.getElementById('rz-overview-btn');
+    const topOverviewBtn = document.getElementById('top-overview-btn');
+    const sideInfoPanelEl = document.getElementById('side-info-panel');
+    const floatingBackBtn = document.getElementById('floating-back-btn');
+
+    const subTabs = [0, 1, 2].map(i => document.getElementById(`subtab-${i}`));
+    const mapCards = Array.from(document.querySelectorAll('.node-card, .insight-note'));
+    const svgPins = Array.from(document.querySelectorAll('.svg-ms-pin'));
+    const msDots = {};
+    ORDER.forEach(id => { msDots[id] = document.getElementById(`ms-dot-${id}`); });
+
+    const PREBUILT_HTML = {};
+    ORDER.forEach(msId => {
+      const d = MILESTONE_DATA[msId];
+      PREBUILT_HTML[msId] = [
+        d.projects.map(p => `
+          <div class="proj-row">
+            <div class="proj-top">
+              <span class="proj-title">${p.name}</span>
+              <span class="proj-owner">${p.owner}</span>
+            </div>
+            <p class="proj-desc">${p.desc}</p>
+          </div>
+        `).join(''),
+        d.goals.map(g => `
+          <div class="kpi-row">
+            <div class="kpi-num">${g.metric}</div>
+            <div class="kpi-text">${g.text}</div>
+          </div>
+        `).join(''),
+        d.impactHtml
+      ];
+    });
+
+    let cachedVw = viewport.clientWidth || 980;
+    let cachedVh = viewport.clientHeight || 520;
+    let isMobileViewport = window.innerWidth <= 1024;
+    let baseScale = Math.min(cachedVw / 1600, cachedVh / 760);
+    let userZoom = 2.04;
+    let panX = 0;
+    let panY = 0;
+    let sharpenTimer = null;
+    const activePointers = new Map();
+
+    function updateCachedMetrics() {
+      cachedVw = viewport.clientWidth || 980;
+      cachedVh = viewport.clientHeight || 520;
+      isMobileViewport = window.innerWidth <= 1024;
+      baseScale = Math.min(cachedVw / 1600, cachedVh / 760);
+    }
+
+    function getMobileFocusZoom() {
+      const targetTotalScale = Math.min(cachedVw / 368, cachedVh / 536);
+      return Math.max(1.55, targetTotalScale / baseScale);
+    }
+
+    function updateOverviewLabels() {
+      if (rzOverviewBtn) rzOverviewBtn.textContent = isOverviewMode ? 'Cận cảnh' : 'Toàn cảnh';
+      if (topOverviewBtn) topOverviewBtn.textContent = isOverviewMode ? 'Xem cận cảnh' : 'Xem toàn cảnh';
+    }
+
+    function clampPan(totalScale) {
+      const stageW = 1600 * totalScale;
+      const stageH = 760 * totalScale;
+      const padX = Math.min(80, cachedVw * 0.22);
+      const padY = Math.min(64, cachedVh * 0.18);
+
+      if (stageW + padX * 2 <= cachedVw) {
+        panX = (cachedVw - stageW) / 2;
+      } else {
+        panX = Math.max(cachedVw - stageW - padX, Math.min(padX, panX));
+      }
+
+      if (stageH + padY * 2 <= cachedVh) {
+        panY = (cachedVh - stageH) / 2;
+      } else {
+        panY = Math.max(cachedVh - stageH - padY, Math.min(padY, panY));
+      }
+    }
+
+    function scheduleSharpen(delayMs = 450) {
+      if (sharpenTimer) clearTimeout(sharpenTimer);
+      sharpenTimer = setTimeout(() => {
+        const totalScale = baseScale * userZoom;
+        stage.classList.add('no-transition');
+        stage.classList.remove('is-moving');
+        stage.style.transform = `translate(${panX.toFixed(1)}px, ${panY.toFixed(1)}px) scale(${totalScale.toFixed(4)})`;
+      }, delayMs);
+    }
+
+    function applyTransform(smooth = true) {
+      if (sharpenTimer) clearTimeout(sharpenTimer);
+      const totalScale = baseScale * userZoom;
+      if (smooth) {
+        stage.classList.add('is-moving');
+        stage.classList.remove('no-transition');
+        void stage.offsetWidth;
+        stage.style.transform = `translate3d(${panX.toFixed(1)}px, ${panY.toFixed(1)}px, 0) scale(${totalScale.toFixed(4)})`;
+        scheduleSharpen(450);
+      } else {
+        stage.classList.add('no-transition');
+        if (activePointers.size > 0) {
+          stage.classList.add('is-moving');
+          stage.style.transform = `translate3d(${panX.toFixed(1)}px, ${panY.toFixed(1)}px, 0) scale(${totalScale.toFixed(4)})`;
+        } else {
+          stage.classList.remove('is-moving');
+          stage.style.transform = `translate(${panX.toFixed(1)}px, ${panY.toFixed(1)}px) scale(${totalScale.toFixed(4)})`;
+        }
+      }
+    }
+
+    function showOverviewMode(smooth = true) {
+      isOverviewMode = true;
+      stage.classList.remove('focused-mode');
+      userZoom = 1;
+      panX = (cachedVw - 1600 * baseScale) / 2;
+      panY = (cachedVh - 760 * baseScale) / 2;
+      updateOverviewLabels();
+      applyTransform(smooth);
+    }
+
+    function toggleOverviewZoom() {
+      if (isOverviewMode) {
+        selectMilestone(currentMilestone, currentSubpart, true);
+      } else {
+        showOverviewMode(true);
+      }
+    }
+
+    function stepZoom(dir) {
+      const prevTotal = baseScale * userZoom;
+      const factor = dir > 0 ? 1.32 : (1 / 1.32);
+      const minTotal = baseScale * 0.96;
+      const maxTotal = isMobileViewport ? 2.15 : 2.6;
+      const nextTotal = Math.max(minTotal, Math.min(maxTotal, prevTotal * factor));
+
+      const centerStageX = (cachedVw / 2 - panX) / prevTotal;
+      const centerStageY = (cachedVh / 2 - panY) / prevTotal;
+
+      userZoom = nextTotal / baseScale;
+      isOverviewMode = (userZoom <= 1.08);
+      stage.classList.toggle('focused-mode', !isOverviewMode);
+      updateOverviewLabels();
+
+      panX = cachedVw / 2 - centerStageX * nextTotal;
+      panY = cachedVh / 2 - centerStageY * nextTotal;
+      clampPan(nextTotal);
+      applyTransform(true);
+    }
+
+    function focusCameraOn(stageX, stageY, targetZoom = 2.04, smooth = true) {
+      isOverviewMode = false;
+      stage.classList.add('focused-mode');
+      userZoom = targetZoom;
+      const totalScale = baseScale * userZoom;
+
+      panX = (cachedVw / 2) - (stageX * totalScale);
+      panY = (cachedVh / 2) - (stageY * totalScale);
+      clampPan(totalScale);
+      updateOverviewLabels();
+      applyTransform(smooth);
+    }
+
+    function renderSubpartContent() {
+      const htmlParts = PREBUILT_HTML[currentMilestone];
+      if (!htmlParts) return;
+
+      for (let i = 0; i < 3; i++) {
+        if (subTabs[i]) subTabs[i].classList.toggle('active', i === currentSubpart);
+      }
+      subpartCounterEl.textContent = `${currentSubpart + 1} / 3`;
+      subpartBodyEl.innerHTML = htmlParts[currentSubpart];
+      if (subpartStageEl) subpartStageEl.scrollTop = 0;
+
+      if (currentSubpart < 2) {
+        sipNextBtnEl.textContent = NEXT_TAB_LABELS[currentSubpart];
+      } else {
+        const nextIdx = (ORDER.indexOf(currentMilestone) + 1) % ORDER.length;
+        const nextLabel = ORDER[nextIdx] === '3' ? 'Giai đoạn 3' : `Mốc ${ORDER[nextIdx]}`;
+        sipNextBtnEl.textContent = `Sang ${nextLabel} →`;
+      }
+    }
+
+    function setSubpart(partIndex) {
+      currentSubpart = partIndex;
+      renderSubpartContent();
+    }
+
+    function stepSubpart(dir) {
+      if (dir > 0) {
+        if (currentSubpart < 2) {
+          currentSubpart++;
+          renderSubpartContent();
+        } else {
+          const nextIdx = (ORDER.indexOf(currentMilestone) + 1) % ORDER.length;
+          selectMilestone(ORDER[nextIdx], 0);
+        }
+      } else {
+        if (currentSubpart > 0) {
+          currentSubpart--;
+          renderSubpartContent();
+        } else {
+          const prevIdx = (ORDER.indexOf(currentMilestone) - 1 + ORDER.length) % ORDER.length;
+          selectMilestone(ORDER[prevIdx], 2);
+        }
+      }
+    }
+
+    function selectMilestone(msId, subpart = 0, smooth = true) {
+      currentMilestone = msId;
+      currentSubpart = subpart;
+      const data = MILESTONE_DATA[msId];
+      if (!data) return;
+
+      if (isMobileViewport && data.mobileCamera) {
+        focusCameraOn(data.mobileCamera.x, data.mobileCamera.y, getMobileFocusZoom(), smooth);
+      } else {
+        focusCameraOn(data.camera.x, data.camera.y, data.camera.scale, smooth);
+      }
+
+      for (let i = 0; i < mapCards.length; i++) {
+        mapCards[i].classList.toggle('selected-node', mapCards[i].dataset.ms === msId);
+      }
+      for (let i = 0; i < svgPins.length; i++) {
+        svgPins[i].classList.toggle('active-pin', svgPins[i].dataset.ms === msId);
+      }
+      for (let i = 0; i < ORDER.length; i++) {
+        const id = ORDER[i];
+        if (msDots[id]) msDots[id].classList.toggle('active', id === msId);
+      }
+
+      sipBadgeEl.textContent = data.badge;
+      sipTitleEl.textContent = data.title;
+      sipSummaryEl.textContent = data.summary;
+      renderSubpartContent();
+    }
+
+    function handleMilestoneClick(msId) {
+      selectMilestone(msId, 0, true);
+      if (isMobileViewport && sideInfoPanelEl && viewport) {
+        const panelRect = sideInfoPanelEl.getBoundingClientRect();
+        if (panelRect.top > window.innerHeight * 0.68) {
+          viewport.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+
+    function jumpBackToTimeline() {
+      if (viewport) viewport.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Keyboard Support (ArrowLeft / ArrowRight)
+    window.addEventListener('keydown', (e) => {
+      if (e.target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+      const curIdx = ORDER.indexOf(currentMilestone);
+      if (e.key === 'ArrowRight') {
+        selectMilestone(ORDER[(curIdx + 1) % ORDER.length], 0, true);
+      } else if (e.key === 'ArrowLeft') {
+        selectMilestone(ORDER[(curIdx - 1 + ORDER.length) % ORDER.length], 0, true);
+      }
+    });
+
+    // Desktop Wheel: Trackpad Pinch-Zoom OR Scrollytelling Step
+    let lastWheelTime = 0;
+    window.addEventListener('wheel', (e) => {
+      if (e.ctrlKey && viewport.contains(e.target)) {
+        e.preventDefault();
+        const rect = viewport.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        const prevTotal = baseScale * userZoom;
+        const factor = Math.exp(-e.deltaY * 0.0045);
+        const nextTotal = Math.max(baseScale * 0.96, Math.min(2.6, prevTotal * factor));
+        const sx = (mx - panX) / prevTotal;
+        const sy = (my - panY) / prevTotal;
+        userZoom = nextTotal / baseScale;
+        isOverviewMode = (userZoom <= 1.08);
+        stage.classList.toggle('focused-mode', !isOverviewMode);
+        updateOverviewLabels();
+        panX = mx - sx * nextTotal;
+        panY = my - sy * nextTotal;
+        clampPan(nextTotal);
+        applyTransform(false);
+        scheduleSharpen(180);
+        return;
+      }
+
+      if (isMobileViewport) return;
+      if (subpartStageEl && subpartStageEl.contains(e.target) && subpartStageEl.scrollHeight > subpartStageEl.clientHeight + 2) {
+        const atBottom = subpartStageEl.scrollTop + subpartStageEl.clientHeight >= subpartStageEl.scrollHeight - 2;
+        const atTop = subpartStageEl.scrollTop <= 2;
+        if ((e.deltaY > 0 && !atBottom) || (e.deltaY < 0 && !atTop)) return;
+      }
+
+      e.preventDefault();
+      const now = performance.now();
+      if (now - lastWheelTime < 250 || Math.abs(e.deltaY) < 8) return;
+
+      const curIdx = ORDER.indexOf(currentMilestone);
+      if (e.deltaY > 0) {
+        if (isOverviewMode) {
+          lastWheelTime = now;
+          selectMilestone('1A', 0, true);
+        } else if (curIdx < ORDER.length - 1) {
+          lastWheelTime = now;
+          selectMilestone(ORDER[curIdx + 1], 0, true);
+        }
+      } else if (e.deltaY < 0) {
+        if (!isOverviewMode && curIdx > 0) {
+          lastWheelTime = now;
+          selectMilestone(ORDER[curIdx - 1], 0, true);
+        } else if (!isOverviewMode && curIdx === 0) {
+          lastWheelTime = now;
+          showOverviewMode(true);
+        }
+      }
+    }, { passive: false });
+
+    // Mobile Floating Return Button
+    let scrollTicking = false;
+    window.addEventListener('scroll', () => {
+      if (!scrollTicking) {
+        requestAnimationFrame(() => {
+          if (floatingBackBtn) floatingBackBtn.classList.toggle('visible', window.scrollY > 420);
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
+    }, { passive: true });
+
+    viewport.addEventListener('gesturestart', (e) => e.preventDefault(), { passive: false });
+    viewport.addEventListener('gesturechange', (e) => e.preventDefault(), { passive: false });
+
+    // Multi-Touch Pan + 2-Finger Pinch-to-Zoom Engine
+    let isDragging = false;
+    let dragRafPending = false;
+    let dragLastX = 0;
+    let dragLastY = 0;
+    let cachedVpLeft = 0;
+    let cachedVpTop = 0;
+    let pinchPrevDist = 0;
+    let pinchPrevMidX = 0;
+    let pinchPrevMidY = 0;
+    let tapCandidate = null;
+
+    function initPinchMetrics() {
+      const pts = Array.from(activePointers.values());
+      if (pts.length < 2) return;
+      pinchPrevDist = Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y);
+      pinchPrevMidX = (pts[0].x + pts[1].x) / 2 - cachedVpLeft;
+      pinchPrevMidY = (pts[0].y + pts[1].y) / 2 - cachedVpTop;
+    }
+
+    viewport.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('.zoom-dock')) return;
+      const rect = viewport.getBoundingClientRect();
+      cachedVpLeft = rect.left;
+      cachedVpTop = rect.top;
+
+      activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      try { viewport.setPointerCapture(e.pointerId); } catch (_) {}
+
+      if (activePointers.size === 1) {
+        tapCandidate = { id: e.pointerId, startX: e.clientX, startY: e.clientY, target: e.target, moved: false };
+        dragLastX = e.clientX;
+        dragLastY = e.clientY;
+      } else if (activePointers.size === 2) {
+        tapCandidate = null;
+        isDragging = false;
+        stage.classList.add('is-moving', 'no-transition');
+        initPinchMetrics();
+      }
+    });
+
+    viewport.addEventListener('pointermove', (e) => {
+      if (!activePointers.has(e.pointerId)) return;
+      activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+      if (activePointers.size >= 2) {
+        const pts = Array.from(activePointers.values());
+        const dist = Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y);
+        const midX = (pts[0].x + pts[1].x) / 2 - cachedVpLeft;
+        const midY = (pts[0].y + pts[1].y) / 2 - cachedVpTop;
+
+        const prevTotal = baseScale * userZoom;
+        const stageX = (pinchPrevMidX - panX) / prevTotal;
+        const stageY = (pinchPrevMidY - panY) / prevTotal;
+
+        const ratio = pinchPrevDist > 8 ? (dist / pinchPrevDist) : 1;
+        const nextTotal = Math.max(baseScale * 0.94, Math.min(isMobileViewport ? 2.15 : 2.6, prevTotal * ratio));
+
+        userZoom = nextTotal / baseScale;
+        isOverviewMode = (userZoom <= 1.08);
+        stage.classList.toggle('focused-mode', !isOverviewMode);
+        updateOverviewLabels();
+
+        panX = midX - stageX * nextTotal;
+        panY = midY - stageY * nextTotal;
+        clampPan(nextTotal);
+
+        pinchPrevDist = dist;
+        pinchPrevMidX = midX;
+        pinchPrevMidY = midY;
+
+        if (!dragRafPending) {
+          dragRafPending = true;
+          requestAnimationFrame(() => {
+            applyTransform(false);
+            dragRafPending = false;
+          });
+        }
+        return;
+      }
+
+      if (activePointers.size === 1) {
+        if (tapCandidate && tapCandidate.id === e.pointerId && !tapCandidate.moved) {
+          if (Math.hypot(e.clientX - tapCandidate.startX, e.clientY - tapCandidate.startY) > 8) {
+            tapCandidate.moved = true;
+            isDragging = true;
+            viewport.classList.add('dragging');
+            stage.classList.add('is-moving', 'no-transition');
+            dragLastX = e.clientX;
+            dragLastY = e.clientY;
+          }
+        }
+
+        if (isDragging) {
+          panX += (e.clientX - dragLastX);
+          panY += (e.clientY - dragLastY);
+          dragLastX = e.clientX;
+          dragLastY = e.clientY;
+          clampPan(baseScale * userZoom);
+
+          if (!dragRafPending) {
+            dragRafPending = true;
+            requestAnimationFrame(() => {
+              applyTransform(false);
+              dragRafPending = false;
+            });
+          }
+        }
+      }
+    });
+
+    function onPointerFinish(e) {
+      if (e.type === 'pointerup' && tapCandidate && tapCandidate.id === e.pointerId && !tapCandidate.moved) {
+        const msEl = tapCandidate.target && tapCandidate.target.closest ? tapCandidate.target.closest('[data-ms]') : null;
+        activePointers.delete(e.pointerId);
+        tapCandidate = null;
+        isDragging = false;
+        viewport.classList.remove('dragging');
+        if (msEl && msEl.dataset.ms) {
+          handleMilestoneClick(msEl.dataset.ms);
+          return;
+        }
+      }
+
+      activePointers.delete(e.pointerId);
+      if (activePointers.size === 1) {
+        const rem = activePointers.values().next().value;
+        dragLastX = rem.x;
+        dragLastY = rem.y;
+        isDragging = true;
+      } else if (activePointers.size === 0) {
+        isDragging = false;
+        tapCandidate = null;
+        viewport.classList.remove('dragging');
+        scheduleSharpen(90);
+      }
+    }
+
+    viewport.addEventListener('pointerup', onPointerFinish);
+    viewport.addEventListener('pointercancel', onPointerFinish);
+
+    window.addEventListener('resize', () => {
+      if (Math.abs(viewport.clientWidth - cachedVw) > 8 || Math.abs(viewport.clientHeight - cachedVh) > 8) {
+        updateCachedMetrics();
+        if (isOverviewMode) {
+          showOverviewMode(false);
+        } else {
+          const data = MILESTONE_DATA[currentMilestone];
+          if (isMobileViewport && data.mobileCamera) {
+            focusCameraOn(data.mobileCamera.x, data.mobileCamera.y, getMobileFocusZoom(), false);
+          } else {
+            focusCameraOn(data.camera.x, data.camera.y, data.camera.scale, false);
+          }
+        }
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateCachedMetrics();
+      const params = new URLSearchParams(window.location.search);
+      const msParam = params.get('ms');
+      const partParam = parseInt(params.get('part') || '0', 10);
+      const overviewParam = params.get('overview');
+
+      if (overviewParam === '1') {
+        selectMilestone('1A', 0, false);
+        showOverviewMode(false);
+      } else if (msParam && MILESTONE_DATA[msParam]) {
+        selectMilestone(msParam, isNaN(partParam) ? 0 : partParam, false);
+      } else {
+        selectMilestone('1A', 0, false);
+      }
+    });
+  </script>
+</body>
+</html>
