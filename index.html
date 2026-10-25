@@ -8,9 +8,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('dtdd_theme');
+        if (saved === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (_) {}
+    })();
+  </script>
   <style>
     :root {
-      /* Poster-Synced Minimalist Botanical & Đông Sơn Gold Palette */
+      /* Poster-Synced Minimalist Botanical & Đông Sơn Gold Palette (Light Default) */
+      color-scheme: light;
       --canvas: #F1F5EC;
       --canvas-subtle: #E6EDE0;
       --surface: #FCFDFB;
@@ -27,7 +38,45 @@
       --line: #CFDAC9;
       --line-strong: #B3C3AB;
 
+      --btn-primary-bg: #063824;
+      --btn-primary-hover: #3E6B2C;
+      --btn-primary-fg: #FCFDFB;
+
+      --map-bg: #EBF1E5;
+      --map-dot: #C7D5BE;
+      --note-bg: #F6F9F2;
+      --dock-bg: rgba(252, 253, 251, 0.94);
+
       --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Botanical Nocturne & Đông Sơn Harvest Gold (Eye-Comfort Dark Mode) */
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --canvas: #0A150F;
+      --canvas-subtle: #0F1E16;
+      --surface: #12231A;
+      --surface-muted: #192F23;
+      --ink-forest: #EAF4EC;
+      --ink-body: #C8DBD0;
+      --ink-muted: #8FA999;
+      --olive-main: #8CCB5E;
+      --olive-soft: rgba(140, 203, 94, 0.15);
+      --sprout: #95D654;
+      --gold-bronze: #E5BC5E;
+      --gold-warm: #D8AE4E;
+      --gold-soft: rgba(229, 188, 94, 0.22);
+      --line: #21382A;
+      --line-strong: #2F4E3B;
+
+      --btn-primary-bg: #1D5838;
+      --btn-primary-hover: #266F48;
+      --btn-primary-fg: #F5FBF6;
+
+      --map-bg: #0D1B13;
+      --map-dot: #233C2D;
+      --note-bg: #162B20;
+      --dock-bg: rgba(18, 35, 26, 0.94);
     }
 
     *, *::before, *::after {
@@ -50,6 +99,7 @@
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       overflow-x: clip;
+      transition: background-color 0.24s ease, color 0.24s ease;
     }
 
     button, a {
@@ -191,23 +241,58 @@
       padding: 6px 12px;
       border-radius: 999px;
       white-space: nowrap;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--ink-forest);
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+    .theme-toggle:hover {
+      background: var(--surface-muted);
+      border-color: var(--gold-warm);
+    }
+    .theme-toggle svg {
+      width: 13.5px;
+      height: 13.5px;
+      flex-shrink: 0;
+    }
+    .theme-toggle .icon-sun { display: none; color: var(--gold-bronze); }
+    .theme-toggle .icon-moon { display: block; color: var(--olive-main); }
+    html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+    html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+    .theme-label-short { display: none; }
 
     .overview-trigger {
       font-size: 11.5px;
       font-weight: 600;
-      color: #FCFDFB;
-      background: var(--ink-forest);
-      border: 1px solid var(--ink-forest);
+      color: var(--btn-primary-fg);
+      background: var(--btn-primary-bg);
+      border: 1px solid var(--btn-primary-bg);
       padding: 6px 13px;
       border-radius: 999px;
       cursor: pointer;
       white-space: nowrap;
-      transition: background 0.2s ease;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    html[data-theme="dark"] .overview-trigger {
+      border-color: rgba(216, 174, 78, 0.45);
     }
     .overview-trigger:hover {
-      background: var(--olive-main);
-      border-color: var(--olive-main);
+      background: var(--btn-primary-hover);
+      border-color: var(--btn-primary-hover);
     }
 
     @media (max-width: 1120px) {
@@ -222,6 +307,21 @@
       .header-meta {
         width: 100%;
         justify-content: space-between;
+        gap: 6px;
+      }
+      .group-tag {
+        padding: 5px 10px;
+        font-size: 11px;
+      }
+      .theme-toggle {
+        padding: 5px 10px;
+        font-size: 11px;
+      }
+      .theme-label-full { display: none; }
+      .theme-label-short { display: inline; }
+      .overview-trigger {
+        padding: 5px 11px;
+        font-size: 11px;
       }
     }
 
@@ -307,8 +407,8 @@
       color: var(--ink-forest);
     }
     .step-pill.active {
-      background: var(--ink-forest);
-      color: #FCFDFB;
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-fg);
       border-color: var(--gold-warm);
     }
 
@@ -513,13 +613,16 @@
     }
 
     .nav-btn.primary {
-      background: var(--ink-forest);
-      border-color: var(--ink-forest);
-      color: #FCFDFB;
+      background: var(--btn-primary-bg);
+      border-color: var(--btn-primary-bg);
+      color: var(--btn-primary-fg);
+    }
+    html[data-theme="dark"] .nav-btn.primary {
+      border-color: rgba(216, 174, 78, 0.45);
     }
     .nav-btn.primary:hover {
-      background: var(--olive-main);
-      border-color: var(--olive-main);
+      background: var(--btn-primary-hover);
+      border-color: var(--btn-primary-hover);
     }
 
     .wheel-caption {
@@ -620,13 +723,14 @@
       cursor: grab;
       user-select: none;
       touch-action: none;
-      background-color: #EBF1E5;
-      background-image: radial-gradient(#C7D5BE 0.85px, transparent 0.85px);
+      background-color: var(--map-bg);
+      background-image: radial-gradient(var(--map-dot) 0.85px, transparent 0.85px);
       background-size: 22px 22px;
       border: 1px solid var(--line);
       border-radius: 16px;
       contain: layout style paint;
       transform: translateZ(0);
+      transition: background-color 0.24s ease, border-color 0.2s ease;
     }
 
     .roadmap-viewport.dragging {
@@ -671,6 +775,12 @@
         border-radius: 0 16px 0 0;
         background: linear-gradient(270deg, rgba(235, 241, 229, 0.56) 0%, rgba(235, 241, 229, 0) 65%);
       }
+      html[data-theme="dark"] .map-edge-deadzone.left {
+        background: linear-gradient(90deg, rgba(13, 27, 19, 0.68) 0%, rgba(13, 27, 19, 0) 68%);
+      }
+      html[data-theme="dark"] .map-edge-deadzone.right {
+        background: linear-gradient(270deg, rgba(13, 27, 19, 0.68) 0%, rgba(13, 27, 19, 0) 68%);
+      }
       .map-edge-deadzone.top {
         top: 0;
         left: 26px;
@@ -708,11 +818,15 @@
       display: inline-flex;
       align-items: center;
       gap: 3px;
-      background: rgba(252, 253, 251, 0.94);
+      background: var(--dock-bg);
       border: 1px solid var(--line-strong);
       border-radius: 999px;
       padding: 3px 4px;
       box-shadow: 0 4px 12px rgba(6, 56, 36, 0.08);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+    html[data-theme="dark"] .zoom-dock {
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.42);
     }
 
     .zoom-btn {
@@ -764,9 +878,9 @@
         white-space: nowrap;
       }
       .zoom-btn.freepan-toggle.active {
-        background: var(--ink-forest);
+        background: var(--btn-primary-bg);
         border-color: var(--gold-warm);
-        color: #FCFDFB;
+        color: var(--btn-primary-fg);
       }
     }
 
@@ -813,6 +927,12 @@
 
     .node-card.tone-gold { border-top-color: var(--gold-bronze); }
     .node-card.tone-deep { border-top-color: var(--ink-forest); }
+    html[data-theme="dark"] .node-card {
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.34);
+    }
+    html[data-theme="dark"] .node-card.tone-deep {
+      border-top-color: #55A677;
+    }
 
     .node-card.selected-node {
       border-color: var(--ink-forest);
@@ -820,6 +940,11 @@
       box-shadow: 0 0 0 2px var(--gold-warm), 0 12px 26px rgba(6, 56, 36, 0.14);
       z-index: 12;
       opacity: 1 !important;
+    }
+    html[data-theme="dark"] .node-card.selected-node {
+      border-color: var(--gold-warm);
+      border-top-color: var(--gold-bronze);
+      box-shadow: 0 0 0 2px rgba(229, 188, 94, 0.52), 0 14px 28px rgba(0, 0, 0, 0.48);
     }
 
     .roadmap-stage.focused-mode .node-card:not(.selected-node),
@@ -898,7 +1023,7 @@
     /* Secondary Strategic Note Boxes on Map */
     .insight-note {
       position: absolute;
-      background: #F6F9F2;
+      background: var(--note-bg);
       border: 1px solid var(--line-strong);
       border-left: 3px solid var(--gold-bronze);
       border-radius: 10px;
@@ -908,11 +1033,44 @@
       color: var(--ink-body);
       z-index: 6;
       cursor: pointer;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.25s ease, background-color 0.2s ease;
     }
     .insight-note strong {
       color: var(--ink-forest);
       font-weight: 700;
+    }
+
+    /* Dark Mode SVG Refinements */
+    html[data-theme="dark"] .brand-sun-svg line {
+      stroke: #6CB45C;
+    }
+    html[data-theme="dark"] .svg-river-whisper {
+      stroke: #1C3526;
+    }
+    html[data-theme="dark"] .svg-river-main {
+      opacity: 0.96;
+      filter: brightness(1.22);
+    }
+    html[data-theme="dark"] .svg-loop-pill {
+      fill: #15291E;
+    }
+    html[data-theme="dark"] .svg-loop-text {
+      fill: #EAF4EC;
+    }
+    html[data-theme="dark"] .svg-loop-dot {
+      fill: #15291E;
+    }
+    html[data-theme="dark"] .svg-loop-gold {
+      stroke: #E5BC5E;
+    }
+    html[data-theme="dark"] .svg-loop-olive {
+      stroke: #82C955;
+    }
+    html[data-theme="dark"] #arrowGold path {
+      fill: #E5BC5E;
+    }
+    html[data-theme="dark"] #arrowOlive path {
+      fill: #82C955;
     }
 
     .svg-ms-pin {
@@ -976,8 +1134,8 @@
       bottom: 16px;
       right: 14px;
       z-index: 90;
-      background: var(--ink-forest);
-      color: #FCFDFB;
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-fg);
       border: 1px solid var(--gold-warm);
       border-radius: 999px;
       padding: 9px 15px;
@@ -1094,6 +1252,20 @@
 
       <div class="header-meta">
         <span class="group-tag">Nhóm 4 · Restartup</span>
+        <button type="button" class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối" aria-label="Chuyển chế độ giao diện Sáng hoặc Tối">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.5"/>
+            <line x1="12" y1="2" x2="12" y2="4.2"/><line x1="12" y1="19.8" x2="12" y2="22"/>
+            <line x1="4.93" y1="4.93" x2="6.49" y2="6.49"/><line x1="17.51" y1="17.51" x2="19.07" y2="19.07"/>
+            <line x1="2" y1="12" x2="4.2" y2="12"/><line x1="19.8" y1="12" x2="22" y2="12"/>
+            <line x1="4.93" y1="19.07" x2="6.49" y2="17.51"/><line x1="17.51" y1="6.49" x2="19.07" y2="4.93"/>
+          </svg>
+          <span class="theme-label-full" id="theme-label-full">Giao diện tối</span>
+          <span class="theme-label-short" id="theme-label-short">Tối</span>
+        </button>
         <button type="button" class="overview-trigger" id="top-overview-btn" onclick="toggleOverviewZoom()">Xem toàn cảnh</button>
       </div>
     </header>
@@ -1178,32 +1350,32 @@
             </defs>
 
             <!-- Quiet Saigon River Contour Whisper -->
-            <path d="M 0 448 C 280 545, 520 275, 800 450 C 1080 620, 1320 265, 1600 355" fill="none" stroke="#D5E0CE" stroke-width="1.2"/>
+            <path class="svg-river-whisper" d="M 0 448 C 280 545, 520 275, 800 450 C 1080 620, 1320 265, 1600 355" fill="none" stroke="#D5E0CE" stroke-width="1.2"/>
 
             <!-- Organic Saigon River Living-Flow Ribbon Weaving Across 5 Milestones -->
-            <path d="M 48 456 C 120 518, 250 518, 339 410 C 428 302, 556 302, 643 410 C 730 518, 860 518, 947 410 C 1034 302, 1164 302, 1251 410 C 1332 512, 1435 512, 1504 410 C 1526 376, 1542 356, 1556 348"
+            <path class="svg-river-main" d="M 48 456 C 120 518, 250 518, 339 410 C 428 302, 556 302, 643 410 C 730 518, 860 518, 947 410 C 1034 302, 1164 302, 1251 410 C 1332 512, 1435 512, 1504 410 C 1526 376, 1542 356, 1556 348"
                   fill="none" stroke="url(#riverFlow)" stroke-width="4.5" stroke-linecap="round" opacity="0.88"/>
 
             <!-- Cross-Phase Loop 1 (Top Gold): 2A (799, 272) -> Phase 3 (1418, 168) -->
-            <path d="M 799 272 L 799 112 Q 799 92 819 92 L 1398 92 Q 1418 92 1418 112 L 1418 164"
+            <path class="svg-loop-gold" d="M 799 272 L 799 112 Q 799 92 819 92 L 1398 92 Q 1418 92 1418 112 L 1418 164"
                   fill="none" stroke="#A8791E" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrowGold)"/>
-            <circle cx="799" cy="272" r="4.5" fill="#FCFDFB" stroke="#A8791E" stroke-width="2"/>
+            <circle class="svg-loop-dot svg-loop-gold" cx="799" cy="272" r="4.5" fill="#FCFDFB" stroke="#A8791E" stroke-width="2"/>
 
             <g transform="translate(866, 78)">
-              <rect x="0" y="0" width="486" height="28" rx="14" fill="#FCFDFB" stroke="#D8AE4E" stroke-width="1.4"/>
-              <text x="243" y="18" fill="#063824" font-size="10.5" font-weight="600" text-anchor="middle">
+              <rect class="svg-loop-pill" x="0" y="0" width="486" height="28" rx="14" fill="#FCFDFB" stroke="#D8AE4E" stroke-width="1.4"/>
+              <text class="svg-loop-text" x="243" y="18" fill="#063824" font-size="10.5" font-weight="600" text-anchor="middle">
                 Đòn bẩy 2A → Giai đoạn 3: Nuôi cây tặng kỳ nghỉ 2N1Đ kéo khách về Điền Trang
               </text>
             </g>
 
             <!-- Cross-Phase Loop 2 (Bottom Olive): 2B (1099, 438) -> 1A (214, 486) -->
-            <path d="M 1099 438 L 1099 676 Q 1099 696 1079 696 L 382 696 Q 362 696 362 676 L 362 506 Q 362 486 342 486 L 218 486"
+            <path class="svg-loop-olive" d="M 1099 438 L 1099 676 Q 1099 696 1079 696 L 382 696 Q 362 696 362 676 L 362 506 Q 362 486 342 486 L 218 486"
                   fill="none" stroke="#3E6B2C" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrowOlive)"/>
-            <circle cx="1099" cy="438" r="4.5" fill="#FCFDFB" stroke="#3E6B2C" stroke-width="2"/>
+            <circle class="svg-loop-dot svg-loop-olive" cx="1099" cy="438" r="4.5" fill="#FCFDFB" stroke="#3E6B2C" stroke-width="2"/>
 
             <g transform="translate(486, 682)">
-              <rect x="0" y="0" width="510" height="28" rx="14" fill="#FCFDFB" stroke="#82C341" stroke-width="1.4"/>
-              <text x="255" y="18" fill="#063824" font-size="10.5" font-weight="600" text-anchor="middle">
+              <rect class="svg-loop-pill" x="0" y="0" width="510" height="28" rx="14" fill="#FCFDFB" stroke="#82C341" stroke-width="1.4"/>
+              <text class="svg-loop-text" x="255" y="18" fill="#063824" font-size="10.5" font-weight="600" text-anchor="middle">
                 Tuần hoàn sinh khối: Phân hữu cơ lục bình Eco Hub (2B) cấp ngược giá rẻ (-30%) cho Agri Hub (1A)
               </text>
             </g>
@@ -1626,9 +1798,31 @@
     const rzOverviewBtn = document.getElementById('rz-overview-btn');
     const rzFreePanBtn = document.getElementById('rz-freepan-btn');
     const topOverviewBtn = document.getElementById('top-overview-btn');
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    const themeLabelFullEl = document.getElementById('theme-label-full');
+    const themeLabelShortEl = document.getElementById('theme-label-short');
     const sideInfoPanelEl = document.getElementById('side-info-panel');
     const floatingBackBtn = document.getElementById('floating-back-btn');
     const deadzoneEls = Array.from(document.querySelectorAll('.map-edge-deadzone'));
+
+    function syncThemeLabels() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (themeLabelFullEl) themeLabelFullEl.textContent = isDark ? 'Giao diện sáng' : 'Giao diện tối';
+      if (themeLabelShortEl) themeLabelShortEl.textContent = isDark ? 'Sáng' : 'Tối';
+      if (themeToggleBtn) themeToggleBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const nextTheme = isDark ? 'light' : 'dark';
+      if (nextTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+      try { localStorage.setItem('dtdd_theme', nextTheme); } catch (_) {}
+      syncThemeLabels();
+    }
 
     const subTabs = [0, 1, 2].map(i => document.getElementById(`subtab-${i}`));
     const mapCards = Array.from(document.querySelectorAll('.node-card, .insight-note'));
@@ -2373,6 +2567,13 @@
     window.addEventListener('DOMContentLoaded', () => {
       updateCachedMetrics();
       const params = new URLSearchParams(window.location.search);
+      if (params.get('theme') === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else if (params.get('theme') === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+      }
+      syncThemeLabels();
+
       const msParam = params.get('ms');
       const partParam = parseInt(params.get('part') || '0', 10);
       const overviewParam = params.get('overview');
