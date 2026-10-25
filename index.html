@@ -557,14 +557,57 @@
       display: none;
     }
 
+    .roadmap-mobile-shell,
+    .roadmap-box-wrap {
+      display: contents;
+    }
+
+    .map-edge-deadzone,
+    .mobile-scroll-bridge,
+    .zoom-btn.freepan-toggle {
+      display: none;
+    }
+
     @media (max-width: 1024px) {
       .map-mobile-caption {
         order: 0;
         display: block;
         text-align: center;
-        font-size: 11.5px;
+        font-size: 11.2px;
         color: var(--ink-muted);
         margin-bottom: -4px;
+      }
+
+      /* Outer Thumb-Scroll Gutter Frame (14px shell + 11px gutter = 25px outer deadzone) */
+      .roadmap-mobile-shell {
+        order: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 0 11px;
+        position: relative;
+      }
+
+      /* Subtle Minimalist Tactile Rail Ticks in Left & Right Scroll Gutters */
+      .roadmap-mobile-shell::before,
+      .roadmap-mobile-shell::after {
+        content: "";
+        position: absolute;
+        top: calc(50% - 38px);
+        width: 3px;
+        height: 48px;
+        border-radius: 99px;
+        background: var(--line-strong);
+        opacity: 0.55;
+        pointer-events: none;
+      }
+      .roadmap-mobile-shell::before { left: 2px; }
+      .roadmap-mobile-shell::after  { right: 2px; }
+
+      .roadmap-box-wrap {
+        display: block;
+        position: relative;
+        width: 100%;
       }
     }
 
@@ -576,6 +619,7 @@
       overflow: hidden;
       cursor: grab;
       user-select: none;
+      touch-action: none;
       background-color: #EBF1E5;
       background-image: radial-gradient(#C7D5BE 0.85px, transparent 0.85px);
       background-size: 22px 22px;
@@ -591,10 +635,67 @@
 
     @media (max-width: 1024px) {
       .roadmap-viewport {
-        order: 1;
-        height: clamp(390px, 52dvh, 460px);
-        touch-action: none;
+        height: clamp(315px, 42dvh, 380px);
+        /* Allow native 1-finger vertical page scrolling anywhere over the map by default */
+        touch-action: pan-y;
         -webkit-user-select: none;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .roadmap-viewport.mobile-free-pan {
+        touch-action: none;
+        border-color: var(--gold-bronze);
+        box-shadow: 0 0 0 2px var(--gold-soft);
+      }
+
+      /* Inner Perimeter Scroll Deadzones (26px left/right + 20px top = 51px total thumb safe lane) */
+      .map-edge-deadzone {
+        display: block;
+        position: absolute;
+        z-index: 20;
+        touch-action: pan-y !important;
+      }
+      .map-edge-deadzone.left {
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 26px;
+        border-radius: 16px 0 0 16px;
+        background: linear-gradient(90deg, rgba(235, 241, 229, 0.56) 0%, rgba(235, 241, 229, 0) 65%);
+      }
+      .map-edge-deadzone.right {
+        right: 0;
+        top: 0;
+        bottom: 52px;
+        width: 26px;
+        border-radius: 0 16px 0 0;
+        background: linear-gradient(270deg, rgba(235, 241, 229, 0.56) 0%, rgba(235, 241, 229, 0) 65%);
+      }
+      .map-edge-deadzone.top {
+        top: 0;
+        left: 26px;
+        right: 26px;
+        height: 20px;
+      }
+
+      .mobile-scroll-bridge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        width: 100%;
+        padding: 7px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        color: var(--ink-muted);
+        font-size: 11.2px;
+        font-weight: 600;
+        cursor: pointer;
+        touch-action: pan-y;
+      }
+      .mobile-scroll-bridge strong {
+        color: var(--ink-forest);
       }
     }
 
@@ -625,7 +726,7 @@
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
-      transition: background 0.16s ease;
+      transition: background 0.16s ease, color 0.16s ease;
     }
     .zoom-btn:hover {
       background: var(--surface-muted);
@@ -637,6 +738,36 @@
       border-left: 1px solid var(--line);
       border-right: 1px solid var(--line);
       border-radius: 0;
+    }
+
+    @media (max-width: 1024px) {
+      .zoom-dock {
+        right: 8px;
+        bottom: 8px;
+        padding: 2.5px 3.5px;
+      }
+      .zoom-btn {
+        height: 26px;
+        min-width: 26px;
+      }
+      .zoom-btn.freepan-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        font-size: 10.8px;
+        font-weight: 600;
+        padding: 0 9px;
+        margin-left: 2px;
+        background: var(--surface-muted);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+      .zoom-btn.freepan-toggle.active {
+        background: var(--ink-forest);
+        border-color: var(--gold-warm);
+        color: #FCFDFB;
+      }
     }
 
     /* 1600x760 Vector + HTML Coordinate Stage */
@@ -1008,16 +1139,24 @@
       </aside>
 
       <div class="map-mobile-caption" aria-hidden="true">
-        Chạm chọn mốc trên bản đồ · Kéo 1 ngón hoặc chụm 2 ngón để thu phóng
+        Vuốt dọc để lướt trang · Kéo ngang / 2 ngón xem bản đồ
       </div>
 
       <!-- RIGHT 2/3: MINIMALIST CARTOGRAPHIC TIMELINE -->
-      <div class="roadmap-viewport" id="roadmap-viewport">
-        <div class="zoom-dock" id="roadmap-zoom-controls">
-          <button type="button" class="zoom-btn" onclick="stepZoom(-1)" title="Thu nhỏ" aria-label="Thu nhỏ">−</button>
-          <button type="button" class="zoom-btn zoom-label" id="rz-overview-btn" onclick="toggleOverviewZoom()">Toàn cảnh</button>
-          <button type="button" class="zoom-btn" onclick="stepZoom(1)" title="Phóng to" aria-label="Phóng to">+</button>
-        </div>
+      <div class="roadmap-mobile-shell">
+        <div class="roadmap-box-wrap">
+          <!-- Sibling Safe-Scroll Deadzones (Never blocked by viewport touch-action:none!) -->
+          <div class="map-edge-deadzone left" aria-hidden="true"></div>
+          <div class="map-edge-deadzone right" aria-hidden="true"></div>
+          <div class="map-edge-deadzone top" aria-hidden="true"></div>
+
+          <div class="roadmap-viewport" id="roadmap-viewport">
+            <div class="zoom-dock" id="roadmap-zoom-controls">
+              <button type="button" class="zoom-btn" onclick="stepZoom(-1)" title="Thu nhỏ" aria-label="Thu nhỏ">−</button>
+              <button type="button" class="zoom-btn zoom-label" id="rz-overview-btn" onclick="toggleOverviewZoom()">Toàn cảnh</button>
+              <button type="button" class="zoom-btn" onclick="stepZoom(1)" title="Phóng to" aria-label="Phóng to">+</button>
+              <button type="button" class="zoom-btn freepan-toggle" id="rz-freepan-btn" onclick="toggleMobileFreePan()" title="Bật/tắt kéo tự do 4 hướng bằng 1 ngón" aria-pressed="false">✥ 4 hướng</button>
+            </div>
 
         <div class="roadmap-stage focused-mode" id="roadmap-stage">
           <svg class="roadmap-svg" viewBox="0 0 1600 760" xmlns="http://www.w3.org/2000/svg">
@@ -1260,7 +1399,14 @@
             </ul>
           </div>
 
+            </div>
+          </div>
         </div>
+
+        <button type="button" class="mobile-scroll-bridge" onclick="scrollToInspector()">
+          <span>↓</span>
+          <span>Vuốt dọc bất kỳ đâu hoặc <strong>chạm xem chi tiết mốc</strong></span>
+        </button>
       </div>
 
     </main>
@@ -1478,9 +1624,11 @@
     const subpartBodyEl = document.getElementById('subpart-body');
     const sipNextBtnEl = document.getElementById('sip-next-btn');
     const rzOverviewBtn = document.getElementById('rz-overview-btn');
+    const rzFreePanBtn = document.getElementById('rz-freepan-btn');
     const topOverviewBtn = document.getElementById('top-overview-btn');
     const sideInfoPanelEl = document.getElementById('side-info-panel');
     const floatingBackBtn = document.getElementById('floating-back-btn');
+    const deadzoneEls = Array.from(document.querySelectorAll('.map-edge-deadzone'));
 
     const subTabs = [0, 1, 2].map(i => document.getElementById(`subtab-${i}`));
     const mapCards = Array.from(document.querySelectorAll('.node-card, .insight-note'));
@@ -1519,6 +1667,8 @@
     let panX = 0;
     let panY = 0;
     let sharpenTimer = null;
+    let mobileFreePan = false;
+    let activeTouchCount = 0;
     const activePointers = new Map();
 
     function updateCachedMetrics() {
@@ -1529,8 +1679,28 @@
     }
 
     function getMobileFocusZoom() {
-      const targetTotalScale = Math.min(cachedVw / 368, cachedVh / 536);
-      return Math.max(1.55, targetTotalScale / baseScale);
+      const targetTotalScale = Math.min(cachedVw / 356, cachedVh / 468);
+      return Math.max(1.48, targetTotalScale / baseScale);
+    }
+
+    function setMobileFreePan(enabled) {
+      mobileFreePan = !!enabled;
+      viewport.classList.toggle('mobile-free-pan', mobileFreePan);
+      if (rzFreePanBtn) {
+        rzFreePanBtn.classList.toggle('active', mobileFreePan);
+        rzFreePanBtn.textContent = mobileFreePan ? '✓ 4 hướng' : '✥ 4 hướng';
+        rzFreePanBtn.setAttribute('aria-pressed', mobileFreePan ? 'true' : 'false');
+      }
+    }
+
+    function toggleMobileFreePan() {
+      setMobileFreePan(!mobileFreePan);
+    }
+
+    function scrollToInspector() {
+      if (sideInfoPanelEl) {
+        sideInfoPanelEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
 
     function updateOverviewLabels() {
@@ -1578,7 +1748,7 @@
         scheduleSharpen(450);
       } else {
         stage.classList.add('no-transition');
-        if (activePointers.size > 0) {
+        if (activePointers.size > 0 || activeTouchCount > 0) {
           stage.classList.add('is-moving');
           stage.style.transform = `translate3d(${panX.toFixed(1)}px, ${panY.toFixed(1)}px, 0) scale(${totalScale.toFixed(4)})`;
         } else {
@@ -1590,6 +1760,7 @@
 
     function showOverviewMode(smooth = true) {
       isOverviewMode = true;
+      if (mobileFreePan) setMobileFreePan(false);
       stage.classList.remove('focused-mode');
       userZoom = 1;
       panX = (cachedVw - 1600 * baseScale) / 2;
@@ -1810,7 +1981,14 @@
     viewport.addEventListener('gesturestart', (e) => e.preventDefault(), { passive: false });
     viewport.addEventListener('gesturechange', (e) => e.preventDefault(), { passive: false });
 
-    // Multi-Touch Pan + 2-Finger Pinch-to-Zoom Engine
+    // =========================================================================
+    // SMART GESTURE ARBITER:
+    // - Mobile Touch Default: Vertical 1-finger swipe = 100% Native Page Scroll!
+    //   Horizontal 1-finger swipe = Smooth Timeline Pan!
+    //   Left/Right/Top Edge Deadzones = Guaranteed Scroll Safe Lanes!
+    //   2-Finger Touch = Pinch-to-Zoom + Free 4-Way Pan Anywhere!
+    // - Desktop Mouse / Pen: Full 2D Drag & Click
+    // =========================================================================
     let isDragging = false;
     let dragRafPending = false;
     let dragLastX = 0;
@@ -1822,6 +2000,228 @@
     let pinchPrevMidY = 0;
     let tapCandidate = null;
 
+    function resolveMsElementAt(clientX, clientY, target) {
+      if (target && target.closest) {
+        const direct = target.closest('[data-ms]');
+        if (direct) return direct;
+      }
+      if (deadzoneEls.length > 0) {
+        for (let i = 0; i < deadzoneEls.length; i++) deadzoneEls[i].style.pointerEvents = 'none';
+        const under = document.elementFromPoint(clientX, clientY);
+        for (let i = 0; i < deadzoneEls.length; i++) deadzoneEls[i].style.pointerEvents = '';
+        if (under && under.closest) return under.closest('[data-ms]');
+      }
+      return null;
+    }
+
+    // Forward quick taps on sibling deadzones to any milestone card/pin underneath
+    deadzoneEls.forEach((dz) => {
+      dz.addEventListener('click', (e) => {
+        const msEl = resolveMsElementAt(e.clientX, e.clientY, null);
+        if (msEl && msEl.dataset.ms) {
+          handleMilestoneClick(msEl.dataset.ms);
+        }
+      });
+    });
+
+    // --- A. Mobile & Touchscreen Arbiter (touchstart / touchmove / touchend) ---
+    const EDGE_DEADZONE_X = 26;
+    const EDGE_DEADZONE_Y = 20;
+    let tGesture = 'idle'; // 'idle' | 'pending' | 'scroll-y' | 'pan-map' | 'pinch'
+    let tStartX = 0;
+    let tStartY = 0;
+    let tLastX = 0;
+    let tLastY = 0;
+    let tStartTarget = null;
+    let tStartedInDeadzone = false;
+    let tPinchDist = 0;
+    let tPinchMidX = 0;
+    let tPinchMidY = 0;
+
+    function initTouchPinch(touches) {
+      if (touches.length < 2) return;
+      tPinchDist = Math.hypot(touches[1].clientX - touches[0].clientX, touches[1].clientY - touches[0].clientY);
+      tPinchMidX = (touches[0].clientX + touches[1].clientX) / 2 - cachedVpLeft;
+      tPinchMidY = (touches[0].clientY + touches[1].clientY) / 2 - cachedVpTop;
+    }
+
+    viewport.addEventListener('touchstart', (e) => {
+      if (e.target.closest('.zoom-dock')) return;
+      const rect = viewport.getBoundingClientRect();
+      cachedVpLeft = rect.left;
+      cachedVpTop = rect.top;
+      activeTouchCount = e.touches.length;
+
+      if (e.touches.length >= 2) {
+        if (e.cancelable) e.preventDefault();
+        tGesture = 'pinch';
+        tStartTarget = null;
+        stage.classList.add('is-moving', 'no-transition');
+        initTouchPinch(e.touches);
+        return;
+      }
+
+      if (e.touches.length === 1) {
+        const t = e.touches[0];
+        tStartX = tLastX = t.clientX;
+        tStartY = tLastY = t.clientY;
+        tStartTarget = e.target;
+        const lx = t.clientX - rect.left;
+        const ly = t.clientY - rect.top;
+        tStartedInDeadzone = isMobileViewport && (
+          lx < EDGE_DEADZONE_X ||
+          lx > rect.width - EDGE_DEADZONE_X ||
+          ly < EDGE_DEADZONE_Y ||
+          ly > rect.height - EDGE_DEADZONE_Y ||
+          !!(e.target && e.target.closest && e.target.closest('.map-edge-deadzone'))
+        );
+        tGesture = 'pending';
+      }
+    }, { passive: false });
+
+    viewport.addEventListener('touchmove', (e) => {
+      if (tGesture === 'idle') return;
+      activeTouchCount = e.touches.length;
+
+      // 2-Finger Pinch-to-Zoom + Free 4-Way Pan
+      if (e.touches.length >= 2) {
+        if (tGesture !== 'pinch') {
+          tGesture = 'pinch';
+          stage.classList.add('is-moving', 'no-transition');
+          initTouchPinch(e.touches);
+        }
+        if (e.cancelable) e.preventDefault();
+
+        const t0 = e.touches[0];
+        const t1 = e.touches[1];
+        const dist = Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY);
+        const midX = (t0.clientX + t1.clientX) / 2 - cachedVpLeft;
+        const midY = (t0.clientY + t1.clientY) / 2 - cachedVpTop;
+
+        const prevTotal = baseScale * userZoom;
+        const stageX = (tPinchMidX - panX) / prevTotal;
+        const stageY = (tPinchMidY - panY) / prevTotal;
+
+        const ratio = tPinchDist > 8 ? (dist / tPinchDist) : 1;
+        const nextTotal = Math.max(baseScale * 0.94, Math.min(isMobileViewport ? 2.15 : 2.6, prevTotal * ratio));
+
+        userZoom = nextTotal / baseScale;
+        isOverviewMode = (userZoom <= 1.08);
+        stage.classList.toggle('focused-mode', !isOverviewMode);
+        updateOverviewLabels();
+
+        panX = midX - stageX * nextTotal;
+        panY = midY - stageY * nextTotal;
+        clampPan(nextTotal);
+
+        tPinchDist = dist;
+        tPinchMidX = midX;
+        tPinchMidY = midY;
+
+        if (!dragRafPending) {
+          dragRafPending = true;
+          requestAnimationFrame(() => {
+            applyTransform(false);
+            dragRafPending = false;
+          });
+        }
+        return;
+      }
+
+      // 1-Finger Touch Arbiter
+      if (e.touches.length === 1) {
+        if (tGesture === 'scroll-y') return; // Browser scrolls page natively at 60/120fps
+
+        const t = e.touches[0];
+        const dxTotal = t.clientX - tStartX;
+        const dyTotal = t.clientY - tStartY;
+
+        if (tGesture === 'pending') {
+          if (Math.hypot(dxTotal, dyTotal) < 8) return;
+
+          if (tStartedInDeadzone) {
+            tGesture = 'scroll-y';
+            return;
+          }
+
+          if (isMobileViewport && !mobileFreePan) {
+            // Vertical or diagonal-vertical thumb swipe -> native page scroll!
+            if (Math.abs(dyTotal) >= Math.abs(dxTotal) * 0.72) {
+              tGesture = 'scroll-y';
+              return;
+            }
+          }
+
+          tGesture = 'pan-map';
+          tLastX = t.clientX;
+          tLastY = t.clientY;
+          viewport.classList.add('dragging');
+          stage.classList.add('is-moving', 'no-transition');
+        }
+
+        if (tGesture === 'pan-map') {
+          if (e.cancelable) e.preventDefault();
+          panX += (t.clientX - tLastX);
+          if (!isMobileViewport || mobileFreePan) {
+            panY += (t.clientY - tLastY);
+          } else {
+            panY += (t.clientY - tLastY) * 0.25;
+          }
+          tLastX = t.clientX;
+          tLastY = t.clientY;
+          clampPan(baseScale * userZoom);
+
+          if (!dragRafPending) {
+            dragRafPending = true;
+            requestAnimationFrame(() => {
+              applyTransform(false);
+              dragRafPending = false;
+            });
+          }
+        }
+      }
+    }, { passive: false });
+
+    function onTouchFinish(e) {
+      activeTouchCount = e.touches ? e.touches.length : 0;
+
+      if (e.type === 'touchend' && tGesture === 'pending' && activeTouchCount === 0) {
+        const ct = e.changedTouches && e.changedTouches[0];
+        const cx = ct ? ct.clientX : tStartX;
+        const cy = ct ? ct.clientY : tStartY;
+        if (Math.hypot(cx - tStartX, cy - tStartY) < 10) {
+          const msEl = resolveMsElementAt(cx, cy, tStartTarget);
+          tGesture = 'idle';
+          tStartTarget = null;
+          viewport.classList.remove('dragging');
+          if (msEl && msEl.dataset.ms) {
+            if (e.cancelable) e.preventDefault();
+            handleMilestoneClick(msEl.dataset.ms);
+            return;
+          }
+        }
+      }
+
+      if (activeTouchCount === 1 && tGesture === 'pinch') {
+        tLastX = e.touches[0].clientX;
+        tLastY = e.touches[0].clientY;
+        tGesture = (!isMobileViewport || mobileFreePan) ? 'pan-map' : 'idle';
+        if (tGesture === 'idle') {
+          viewport.classList.remove('dragging');
+          scheduleSharpen(90);
+        }
+      } else if (activeTouchCount === 0) {
+        tGesture = 'idle';
+        tStartTarget = null;
+        viewport.classList.remove('dragging');
+        scheduleSharpen(90);
+      }
+    }
+
+    viewport.addEventListener('touchend', onTouchFinish, { passive: false });
+    viewport.addEventListener('touchcancel', onTouchFinish, { passive: true });
+
+    // --- B. Desktop Mouse / Stylus Engine (pointerdown / pointermove / pointerup) ---
     function initPinchMetrics() {
       const pts = Array.from(activePointers.values());
       if (pts.length < 2) return;
@@ -1831,6 +2231,7 @@
     }
 
     viewport.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch') return;
       if (e.target.closest('.zoom-dock')) return;
       const rect = viewport.getBoundingClientRect();
       cachedVpLeft = rect.left;
@@ -1852,6 +2253,7 @@
     });
 
     viewport.addEventListener('pointermove', (e) => {
+      if (e.pointerType === 'touch') return;
       if (!activePointers.has(e.pointerId)) return;
       activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
 
@@ -1922,8 +2324,9 @@
     });
 
     function onPointerFinish(e) {
+      if (e.pointerType === 'touch') return;
       if (e.type === 'pointerup' && tapCandidate && tapCandidate.id === e.pointerId && !tapCandidate.moved) {
-        const msEl = tapCandidate.target && tapCandidate.target.closest ? tapCandidate.target.closest('[data-ms]') : null;
+        const msEl = resolveMsElementAt(e.clientX, e.clientY, tapCandidate.target);
         activePointers.delete(e.pointerId);
         tapCandidate = null;
         isDragging = false;
