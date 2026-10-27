@@ -590,29 +590,65 @@
       transform: translate(1.5px, -1.5px);
     }
 
-    /* KPI Rows */
+    /* KPI Gate Banner & KPI Rows */
+    .kpi-gate-note {
+      padding: 8px 11px;
+      margin-bottom: 9px;
+      border-radius: 9px;
+      background: var(--gold-soft);
+      border: 1px solid rgba(168, 121, 30, 0.34);
+      font-size: 11.3px;
+      line-height: 1.42;
+      color: var(--ink-body);
+    }
+    .kpi-gate-note strong {
+      color: var(--ink-forest);
+      font-weight: 700;
+    }
+
     .kpi-row {
       display: grid;
-      grid-template-columns: 104px 1fr;
+      grid-template-columns: 114px 1fr;
       align-items: center;
       gap: 12px;
-      padding: clamp(8px, 1.1vh, 11px) 12px;
+      padding: clamp(8px, 1.05vh, 10px) 12px;
       background: var(--surface-muted);
       border-radius: 10px;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
       border-left: 3px solid var(--olive-main);
     }
     .kpi-row:last-child { margin-bottom: 0; }
 
+    .kpi-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    .kpi-proj-tag {
+      display: inline-block;
+      font-size: 9.8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--olive-main);
+      background: var(--olive-soft);
+      padding: 1.5px 6px;
+      border-radius: 999px;
+      line-height: 1.3;
+    }
+
     .kpi-num {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 800;
       color: var(--ink-forest);
       letter-spacing: -0.02em;
+      line-height: 1.25;
     }
 
     .kpi-text {
-      font-size: 11.8px;
+      font-size: 11.7px;
       color: var(--ink-body);
       line-height: 1.42;
     }
@@ -1341,7 +1377,7 @@
 
           <div class="sub-nav" role="tablist">
             <button type="button" class="sub-tab active" id="subtab-0" onclick="setSubpart(0)">Dự án vệ tinh</button>
-            <button type="button" class="sub-tab" id="subtab-1" onclick="setSubpart(1)">Chỉ số mục tiêu</button>
+            <button type="button" class="sub-tab" id="subtab-1" onclick="setSubpart(1)">KPI giai đoạn</button>
             <button type="button" class="sub-tab" id="subtab-2" onclick="setSubpart(2)">Đòn bẩy liên kết</button>
             <span class="sub-counter" id="subpart-counter">1 / 3</span>
           </div>
@@ -1354,7 +1390,7 @@
         <div class="inspector-footer">
           <div class="inspector-btns">
             <button type="button" class="nav-btn" onclick="stepSubpart(-1)">← Phần trước</button>
-            <button type="button" class="nav-btn primary" id="sip-next-btn" onclick="stepSubpart(1)">Chỉ số mục tiêu →</button>
+            <button type="button" class="nav-btn primary" id="sip-next-btn" onclick="stepSubpart(1)">KPI giai đoạn →</button>
           </div>
           <button type="button" class="mob-return-btn" onclick="jumpBackToTimeline()">↑ Trở lại bản đồ lộ trình</button>
           <div class="wheel-caption">Cuộn chuột hoặc nhấn phím ← → để chuyển qua từng cột mốc (1A → GĐ 3)</div>
@@ -1516,24 +1552,24 @@
               <span class="nc-pill">Tháng 1–3</span>
             </div>
             <ul>
-              <li><strong>Agri Hub (Nông dân):</strong> Gom đơn mua sỉ phân bón, nông cụ giảm <strong>10–20%</strong>; giao diện chữ lớn dễ thao tác.</li>
-              <li><strong>Bao Tiêu Xanh (Khách):</strong> Đặt trước nông sản tuần/tháng; có gói tiết kiệm tiêu thụ nông sản xấu mã.</li>
-              <li><strong>HTX Bình Mỹ:</strong> Kiểm định chất lượng tập trung; dự án thu <strong>8–10%</strong> phí vận hành.</li>
+              <li><strong>Agri Hub:</strong> <strong>&gt;70%</strong> hộ nông dân Bình Mỹ sử dụng; giảm <strong>&gt;15%</strong> chi phí vật tư so với cùng kỳ quý trước.</li>
+              <li><strong>Bao Tiêu Xanh:</strong> Lợi nhuận hoa hồng đạt <strong>~30tr</strong> sau 3 tháng; khách trở lại thường xuyên <strong>&gt;20%</strong>.</li>
+              <li><strong>HTX Bình Mỹ:</strong> Kiểm định chất lượng tập trung; sàn thu <strong>8–10%</strong> phí vận hành.</li>
             </ul>
             <div class="nc-more">
-              <span>Xem 3 dự án &amp; chỉ số</span>
+              <span>Xem 3 dự án &amp; KPI</span>
               <span>→</span>
             </div>
           </div>
 
           <div class="node-card selected-node" data-ms="1A" style="left: 44px; top: 522px; width: 300px;">
             <div class="nc-header">
-              <span class="nc-title">Nền tảng uy tín xã Bình Mỹ</span>
-              <span class="nc-pill">Vốn 40 triệu</span>
+              <span class="nc-title">Nền tảng dữ liệu mở khóa GĐ 2</span>
+              <span class="nc-pill">Vốn ~30 triệu</span>
             </div>
             <ul>
-              <li><strong>Tối ưu nguồn lực:</strong> Nhóm tự phát triển In-house 3 ứng dụng, liên kết trực tiếp HTX Bình Mỹ.</li>
-              <li><strong>Trọng tâm Giai đoạn 1:</strong> Tích lũy <strong>danh tiếng &amp; niềm tin thực tế</strong> trước khi mở nhận nuôi cây.</li>
+              <li><strong>Hoàn vốn quý 1:</strong> Tự phát triển In-house 3 ứng dụng; hoa hồng ~30tr sau 3 tháng bù đủ vốn mồi.</li>
+              <li><strong>Cơ sở dữ liệu gốc:</strong> Số liệu thực tế GĐ 1 dùng để <strong>quyết định KPI Giai đoạn 2</strong>.</li>
             </ul>
           </div>
 
@@ -1541,40 +1577,40 @@
           <div class="node-card" data-ms="1B" style="left: 350px; top: 120px; width: 296px;">
             <div class="nc-header">
               <span class="nc-title">1B. FreshTransit &amp; GreenID</span>
-              <span class="nc-pill">Minh bạch 100%</span>
+              <span class="nc-pill">Scan đầu &gt;30%</span>
             </div>
             <ul>
-              <li><strong>FreshTransit:</strong> Thuê dân địa phương chở nông sản từ hẻm nhỏ (&lt;2m) bằng <strong>thùng mát &amp; sọt chống dập</strong> lên TP.HCM (45 phút).</li>
-              <li><strong>GreenID (Zero-App):</strong> Chip NFC &amp; khóa Zip-tag mở ngay nhật ký canh tác trên <strong>Zalo Mini Web</strong>.</li>
+              <li><strong>FreshTransit:</strong> Gom nông sản hẻm nhỏ (&lt;2m) bằng <strong>thùng mát &amp; sọt chống dập</strong> lên TP.HCM (45p, hư hao &lt;10%).</li>
+              <li><strong>GreenID (Zero-App):</strong> Scan rate lần mua đầu <strong>&gt;30%</strong>; các lần sau giảm <strong>~10%</strong> khi khách đã tin tưởng.</li>
             </ul>
             <div class="nc-more">
-              <span>Xem đòn bẩy uy tín</span>
+              <span>Xem KPI &amp; đòn bẩy</span>
               <span>→</span>
             </div>
           </div>
 
           <div class="insight-note" data-ms="1B" style="left: 356px; top: 458px; width: 282px;">
-            <strong>Bàn đạp sang Giai đoạn 2:</strong><br/>
-            Khi khách thành phố đã ăn thử rau quả Bình Mỹ tươi ngon và tin tưởng tem <strong>GreenID</strong>, xã mới đủ uy tín để mở <strong>Crowdfarming</strong>.
+            <strong>Bàn đạp dữ liệu sang Giai đoạn 2:</strong><br/>
+            Tệp <strong>&gt;20%</strong> khách mua lặp lại cùng <strong>&gt;30%</strong> lượt quét NFC lần đầu là thước đo niềm tin để ấn định quy mô mở <strong>Crowdfarming</strong>.
           </div>
 
           <!-- 2A -->
           <div class="insight-note" data-ms="2A" style="left: 656px; top: 272px; width: 286px;">
-            <strong>Vì sao đặt Crowdfarming ở Giai đoạn 2?</strong><br/>
-            Nhận nuôi cây trả tiền trước đòi hỏi <strong>niềm tin lớn</strong>. Đặt sau Giai đoạn 1 giúp tỷ lệ chuyển đổi tăng vượt trội nhờ uy tín sẵn có.
+            <strong>Quyết định KPI từ số liệu GĐ 1:</strong><br/>
+            Chỉ tiêu nhận nuôi cây được chốt trực tiếp từ <strong>tệp khách trung thành &amp; dòng vốn hoàn lại</strong> sau 3 tháng đầu Giai đoạn 1.
           </div>
 
           <div class="node-card tone-gold" data-ms="2A" style="left: 646px; top: 522px; width: 312px;">
             <div class="nc-header">
               <span class="nc-title">2A. Crowdfarming &amp; Quà B2B</span>
-              <span class="nc-pill">Tháng 4–8</span>
+              <span class="nc-pill">Dự phóng 80–100 gốc</span>
             </div>
             <ul>
-              <li><strong>Nhận nuôi cây (GreenBinhMy + NFC):</strong> Thu hút khách trung lưu nhận nuôi cây ăn trái rễ sâu giữ đất bờ sông Sài Gòn.</li>
-              <li><strong>Gói 1 triệu/năm &amp; theo mùa:</strong> Trích <strong>10% vào Quỹ dự phòng HTX</strong>, bảo hiểm cây 1:1 và tặng kỳ nghỉ <strong>2N1Đ</strong>.</li>
+              <li><strong>Nhận nuôi cây (GreenBinhMy × NFC):</strong> Dự phóng <strong>80–100 gốc</strong> (1 triệu/năm), trích 10% Quỹ HTX, tặng vé <strong>2N1Đ</strong>.</li>
+              <li><strong>Sổ Cây &amp; Quà B2B:</strong> &gt;85% nhà vườn cập nhật <em>Simple Mode</em>; tiêu thụ <strong>200–300 giỏ quà NFC</strong> dịp Lễ/Tết.</li>
             </ul>
             <div class="nc-more">
-              <span>Xem dòng tiền &amp; đòn bẩy</span>
+              <span>Xem KPI dự phóng &amp; vốn</span>
               <span>→</span>
             </div>
           </div>
@@ -1586,11 +1622,11 @@
               <span class="nc-pill">Tháng 6–12</span>
             </div>
             <ul>
-              <li><strong>BioFlow &amp; Eco Hub:</strong> Máy vớt lục bình tự động trên rạch thí điểm → Ủ phân vi sinh rẻ hơn 30% và mở <strong>Workshop miễn phí</strong>.</li>
-              <li><strong>Nối Nghề:</strong> Ứng dụng học đan lát, dựng <strong>Nhà thủ công Showcase</strong> và đào tạo hộ dân chuẩn đón khách.</li>
+              <li><strong>BioFlow &amp; Eco Hub:</strong> Dự phóng vớt <strong>15–20 tấn bèo/tháng</strong> → Ủ 3,5–4,5 tấn phân rẻ hơn 30% cho &gt;50% hộ Agri Hub.</li>
+              <li><strong>Nối Nghề:</strong> Số hóa 15–20 bài học, bán &gt;150 sản phẩm/tháng &amp; chuẩn hóa <strong>100% hộ đón khách</strong>.</li>
             </ul>
             <div class="nc-more">
-              <span>Xem vòng lặp sinh khối</span>
+              <span>Xem KPI &amp; vòng tuần hoàn</span>
               <span>→</span>
             </div>
           </div>
@@ -1599,26 +1635,26 @@
           <div class="node-card tone-deep" data-ms="3" style="left: 1272px; top: 168px; width: 292px;">
             <div class="nc-header">
               <span class="nc-title">3. KDL Điền Trang Đại Đồng</span>
-              <span class="nc-pill">Tháng 12+</span>
+              <span class="nc-pill">450–650 khách/th</span>
             </div>
             <ul>
-              <li><strong>Trọng tâm doanh thu:</strong> Đón du khách sinh thái chi tiêu cho <strong>ẩm thực ven sông (F&amp;B)</strong> và lưu trú 2N1Đ.</li>
-              <li><strong>Vận hành linh hoạt:</strong> Tự khai thác <strong>In-house</strong> hoặc hợp tác đối tác thứ ba.</li>
-              <li><strong>Ít vốn – Biên lãi cao:</strong> Thừa hưởng trọn vẹn hạ tầng tự nuôi sống từ 8 dự án vệ tinh.</li>
+              <li><strong>KPI từ dữ liệu GĐ 2:</strong> Kích hoạt <strong>&gt;65% vé 2N1Đ</strong>, đón 450–650 khách/tháng; lãi ròng F&amp;B đạt <strong>25–35%</strong>.</li>
+              <li><strong>Trục chính 100% In-house:</strong> Giữ trọn bản sắc &amp; biên lãi (mở tùy chọn Co-op hỗ trợ nếu đối tác uy tín).</li>
+              <li><strong>ESG &amp; Tái mua:</strong> Ký 3–5 gói Carbon B2B/năm; <strong>&gt;25%</strong> du khách quay về đặt rau GĐ 1.</li>
             </ul>
             <div class="nc-more">
-              <span>Xem vòng lặp khép kín</span>
+              <span>Xem KPI &amp; vòng khép kín</span>
               <span>→</span>
             </div>
           </div>
 
           <div class="node-card tone-deep" data-ms="3" style="left: 1260px; top: 522px; width: 304px;">
             <div class="nc-header">
-              <span class="nc-title">Vòng lặp giữ chân khách hàng</span>
-              <span class="nc-pill">Khép kín</span>
+              <span class="nc-title">Chuỗi KPI tự mở khóa liên hoàn</span>
+              <span class="nc-pill">Data-Driven</span>
             </div>
             <ul>
-              <li>Đặt rau sạch định kỳ (GĐ 1) → Nhận nuôi cây &amp; nhận vé 2N1Đ (GĐ 2A) → Về thưởng thức F&amp;B, trải nghiệm Eco Hub &amp; làng nghề (GĐ 3).</li>
+              <li>Số liệu GĐ 1 (~30tr hoa hồng, &gt;20% khách lặp lại) quyết định KPI GĐ 2 → Số liệu chủ cây &amp; vườn chuẩn GĐ 2 quyết định công suất GĐ 3.</li>
             </ul>
           </div>
 
@@ -1653,7 +1689,7 @@
   <script>
     const MILESTONE_DATA = {
       '1A': {
-        badge: 'Giai đoạn 1A · Tháng 1 – Tháng 3 · Khởi động hệ thống',
+        badge: 'Giai đoạn 1A · Tháng 1 – Tháng 3 · Vốn mồi ~30 triệu VNĐ',
         title: '1A. Xây dựng hệ thống hỗ trợ nông dân và tạo thói quen tiêu dùng',
         summary: 'Giải quyết trực tiếp bài toán thương lái ép giá tại Bình Mỹ bằng bộ đôi Agri Hub (tối ưu đầu vào) và Bao Tiêu Xanh (tối đa đầu ra) dưới sự bảo chứng chất lượng của HTX Nông nghiệp Bình Mỹ.',
         camera: { x: 280, y: 408, scale: 1.84 },
@@ -1667,7 +1703,7 @@
           {
             name: '2. Ứng dụng Bao Tiêu Xanh (Dành cho khách hàng)',
             owner: 'Lê Huỳnh Hậu',
-            desc: 'Đặt trước nông sản sạch theo ngày, tuần hoặc tháng. Tích hợp gói "Lựa chọn tiết kiệm" giúp tiêu thụ trọn vẹn nông sản ngoại hình chưa đẹp nhưng đạt chuẩn an toàn.',
+            desc: 'Đặt trước nông sản sạch theo ngày, tuần hoặc tháng (hoa hồng 8–10%). Tích hợp gói "Lựa chọn tiết kiệm" giúp tiêu thụ trọn vẹn nông sản ngoại hình chưa đẹp nhưng đạt chuẩn an toàn.',
             demoUrl: 'https://lehuynhhau2338-cntt.github.io/bao-tieu-xanh/',
             demoLabel: 'Xem bản demo web: Bao Tiêu Xanh',
             demoTitle: 'Bao Tiêu Xanh — Kết nối nông sản Việt minh bạch (Bản trình diễn)'
@@ -1678,26 +1714,28 @@
             desc: 'HTX đứng ra tập hợp, kiểm định chất lượng nông sản xã viên và thành lập Quỹ dự phòng hỗ trợ bà con tái đầu tư khi gặp rủi ro thời tiết.'
           }
         ],
+        kpiRule: '<strong>KPI kiểm chứng Giai đoạn 1 (Tháng 1–3):</strong> Đo lường thực tế độ phủ nông hộ, điểm hoàn vốn mồi ~30tr và tỷ lệ giữ chân khách làm dữ liệu gốc quyết định Giai đoạn 2.',
         goals: [
-          { metric: '10–20%', text: 'Giảm chi phí vật tư nông nghiệp đầu vào nhờ gom đơn mua sỉ tận gốc.' },
-          { metric: '~60%', text: 'Tăng thu nhập ổn định cho nông hộ liên kết nhờ bỏ khâu ép giá và bán được nông sản xấu mã.' },
-          { metric: '~28%', text: 'Mở rộng tệp hộ gia đình TP.HCM đặt lịch mua rau củ định kỳ hàng tuần.' }
+          { proj: 'Agri Hub', metric: '> 70% hộ dân', text: 'Số hộ nông dân Bình Mỹ trong mạng lưới liên kết sử dụng nền tảng gom đơn vật tư và báo lịch thu hoạch.' },
+          { proj: 'Agri Hub', metric: 'Giảm > 15%', text: 'Chi phí vật tư nông nghiệp đầu vào của hộ dân giảm hơn 15% so với cùng kỳ quý trước.' },
+          { proj: 'Bao Tiêu Xanh', metric: '~30 triệu', text: 'Lợi nhuận hoa hồng sàn đạt ~30 triệu VNĐ sau 3 tháng triển khai (thu hồi trọn vẹn vốn mồi ban đầu).' },
+          { proj: 'Bao Tiêu Xanh', metric: '> 20% quay lại', text: 'Tỷ lệ khách hàng đô thị quay lại đặt mua nông sản thường xuyên đạt trên 20%.' }
         ],
         impactHtml: `
           <div class="impact-card">
             <strong>1. Tạo lịch gom hàng cố định cho Giai đoạn 1B (FreshTransit):</strong><br/>
-            Nông dân báo sản lượng trên Agri Hub và khách đặt trước trên Bao Tiêu Xanh giúp đội xe FreshTransit biết chính xác khối lượng cần lấy tại từng hẻm, không chạy xe rỗng.
+            Hơn 70% hộ dân báo lịch thu hoạch trên Agri Hub và tệp &gt;20% khách đặt định kỳ trên Bao Tiêu Xanh giúp đội xe FreshTransit biết chính xác sản lượng từng hẻm, không chạy xe rỗng.
           </div>
           <div class="impact-card">
-            <strong>2. Tích lũy uy tín thương hiệu cho Giai đoạn 2 (Crowdfarming):</strong><br/>
-            Khách hàng thành phố trải nghiệm nông sản Bình Mỹ đều đặn mỗi tuần, hình thành niềm tin thực tế trước khi quyết định nhận nuôi cây dài hạn.
+            <strong>2. Dữ liệu thực chứng để quyết định KPI Giai đoạn 2:</strong><br/>
+            Kết quả hoàn vốn ~30tr sau 3 tháng và quy mô tệp khách hàng trung thành ở Giai đoạn 1 là căn cứ định lượng trực tiếp để nhóm ấn định số lượng gốc cây mở bán Crowdfarming ở Giai đoạn 2A.
           </div>
         `
       },
       '1B': {
         badge: 'Giai đoạn 1B · Tháng 1 – Tháng 3 · Vận chuyển & định danh số',
         title: '1B. Trạm trung chuyển hẻm nhỏ FreshTransit và định danh GreenID',
-        summary: 'Khép kín khâu vận chuyển chống dập nát từ các tuyến hẻm dưới 2m tại xã Bình Mỹ lên TP.HCM (45 phút) và minh bạch 100% nguồn gốc nông sản qua chip NFC không cần cài ứng dụng.',
+        summary: 'Khép kín khâu vận chuyển chống dập nát từ các tuyến hẻm dưới 2m tại xã Bình Mỹ lên TP.HCM (45 phút) và đo lường hành vi quét chip NFC truy xuất nguồn gốc thực tế trên Zalo Mini Web.',
         camera: { x: 505, y: 338, scale: 1.84 },
         mobileCamera: { x: 496, y: 338 },
         projects: [
@@ -1709,35 +1747,36 @@
           {
             name: '2. GreenID — Hộ chiếu số cây trồng (Zero-App)',
             owner: 'Châu Nhật Thành',
-            desc: 'Ứng dụng 500 chip NFC và khóa niêm phong Zip-tag chống làm giả. Người mua chạm điện thoại là mở ngay hồ sơ canh tác trực tiếp trên Zalo Mini Web.',
+            desc: 'Ứng dụng lô 500 chip NFC đầu tiên và khóa niêm phong Zip-tag chống làm giả. Người mua chạm điện thoại là mở ngay hồ sơ canh tác trên Zalo Mini Web (<0,5s), tích hợp Simple Mode cho nhà vườn.',
             demoUrl: 'https://thanhdz6dz-gozz.github.io/DemoGreenID_retardup/',
             demoLabel: 'Xem bản demo web: GreenID (Sổ Chăm Cây NFC)',
-            demoTitle: 'GreenID Bình Mỹ — Sổ Chăm Cây NFC (Giao diện Nhà Vườn Chú Mai)'
+            demoTitle: 'Sổ Cây GreenID — Hộ Chiếu Số Cây Trồng NFC | Điền Trang Đại Đồng'
           }
         ],
+        kpiRule: '<strong>KPI kiểm chứng niềm tin (Tháng 1–3):</strong> Theo dõi tỷ lệ quét thẻ NFC lần đầu và hành vi mua lặp lại để xác nhận mức độ tin cậy thương hiệu trước khi gọi vốn nuôi cây.',
         goals: [
-          { metric: '5–15%', text: 'Giảm tỷ lệ hao hụt, dập nát nông sản nhờ sọt chuyên dụng, thùng mát và tối giản khâu bốc dỡ.' },
-          { metric: '100%', text: 'Đơn hàng nông sản và giỏ quà xuất trạm Bình Mỹ đều có mã định danh truy xuất nguồn gốc.' },
-          { metric: '< 0,5 giây', text: 'Thời gian chạm thẻ NFC hiển thị nhật ký canh tác trên Zalo Mini Web, không cần tải app.' }
+          { proj: 'GreenID NFC', metric: '> 30% lần đầu', text: 'Scan rate của khách hàng ngay ở lần mua đầu tiên đạt trên 30% (chạm mở Zalo Mini Web dưới 0,5 giây).' },
+          { proj: 'GreenID NFC', metric: 'Giảm ~10%', text: 'Ở các lần mua lặp lại tiếp theo, Scan rate giảm khoảng 10% (duy trì ~20%) khi niềm tin thương hiệu đã được xác lập.' },
+          { proj: 'FreshTransit', metric: '< 10% hư hao', text: 'Giảm tỷ lệ dập nát từ mức 20–25% cũ xuống dưới 10%; tỷ lệ giao đúng khung giờ cam kết đạt trên 95%.' }
         ],
         impactHtml: `
           <div class="impact-card">
             <strong>Đòn bẩy mở khóa Giai đoạn 2 (Crowdfarming):</strong><br/>
-            Mô hình nhận nuôi cây trả tiền trước đòi hỏi sự tin cậy rất cao. Nhờ FreshTransit giữ trọn độ tươi và GreenID minh bạch từng lô hàng suốt Giai đoạn 1, nông sản Bình Mỹ có đủ uy tín để khách tự tin xuống tiền nhận nuôi cây ở Giai đoạn 2A.
+            Hành vi quét NFC &gt;30% ở lần mua đầu và sự sụt giảm tự nhiên 10% ở các lần mua sau chứng minh khách hàng đã chuyển từ trạng thái "nghi ngờ kiểm chứng" sang "tin tưởng thói quen" — thời điểm vàng để mở gói nhận nuôi cây trả trước ở Giai đoạn 2A.
           </div>
         `
       },
       '2A': {
-        badge: 'Giai đoạn 2A · Tháng 4 – Tháng 8 · Thu hút vốn đầu tư',
+        badge: 'Giai đoạn 2A · Tháng 4 – Tháng 8 · Quyết định từ số liệu GĐ 1',
         title: '2A. Mở mô hình nhận nuôi cây Crowdfarming và giỏ quà B2B',
-        summary: 'Từ nền tảng uy tín Giai đoạn 1, dự án triển khai gói nhận nuôi cây ăn trái rễ sâu giữ đất bờ sông Sài Gòn (GreenBinhMy × NFC GreenID) và dòng giỏ quà hữu cơ doanh nghiệp.',
+        summary: 'Dựa trên dữ liệu khách hàng trung thành (>20%) và dòng vốn hoàn lại (~30tr) của Giai đoạn 1 để ấn định chỉ tiêu nhận nuôi cây ăn trái rễ sâu giữ bờ sông (GreenBinhMy × GreenID) cùng giỏ quà B2B.',
         camera: { x: 802, y: 472, scale: 1.84 },
         mobileCamera: { x: 800, y: 475 },
         projects: [
           {
             name: '1. Crowdfarming nhận nuôi cây (GreenBinhMy × GreenID)',
             owner: 'Kim Chi × Nhật Thành',
-            desc: 'Khách hàng trung lưu nhận nuôi gốc cây ăn trái rễ sâu chống sạt lở bờ sông theo gói năm (1.000.000đ/năm) hoặc gói mùa. Mỗi cây gắn chip NFC định danh tên người nuôi.'
+            desc: 'Khách hàng trung lưu nhận nuôi gốc cây ăn trái rễ sâu chống sạt lở bờ sông theo gói năm (1.000.000đ/năm) hoặc gói mùa. Mỗi cây gắn chip NFC định danh tên người nuôi và đo sinh khối Carbon.'
           },
           {
             name: '2. Quỹ dự phòng HTX & bảo hiểm cây 1:1',
@@ -1750,26 +1789,28 @@
             desc: 'Giỏ quà nông sản sạch đan từ mây tre, lục bình địa phương kèm khóa NFC GreenID dành cho doanh nghiệp biếu tặng đối tác dịp Lễ, Tết.'
           }
         ],
+        kpiRule: '<strong>Dự phóng dựa trên số liệu Giai đoạn 1:</strong> Quy mô chính thức sẽ chốt theo tệp khách lặp lại (&gt;20%) và đà tăng trưởng cuối Tháng 3. Kịch bản dự phóng chuẩn:',
         goals: [
-          { metric: '1 triệu/năm', text: 'Mang lại nguồn vốn ứng trước đầu vụ cho nhà vườn mà không phụ thuộc tín dụng đen.' },
-          { metric: '10% Quỹ', text: 'Trích lập Quỹ dự phòng HTX bảo vệ sinh kế nông dân và cam kết an toàn quyền lợi người nuôi cây.' },
-          { metric: 'Tặng 2N1Đ', text: 'Khách nhận nuôi cây theo năm nhận đặc quyền kỳ nghỉ trải nghiệm 2 ngày 1 đêm tại địa phương.' }
+          { proj: 'GreenBinhMy', metric: '80–100 gốc', text: 'Chuyển đổi 25–35% tệp khách trung thành GĐ 1 sang nuôi cây (1tr/năm), thu trước 80–100tr (trích 10% Quỹ HTX).' },
+          { proj: 'GreenID Vườn', metric: '> 85% đúng kỳ', text: 'Hộ nhà vườn lớn tuổi cập nhật ảnh cây & nhật ký phân bón đúng lịch nhờ Chế độ đơn giản (Simple Mode).' },
+          { proj: 'Quà tặng B2B', metric: '200–300 giỏ', text: 'Ký kết 5–8 doanh nghiệp đặt giỏ quà NFC dịp Lễ/Tết, mang về thêm 25–35 triệu VNĐ lợi nhuận gộp.' },
+          { proj: 'Phễu du lịch', metric: '80–100 vé 2N1Đ', text: 'Phát hành đặc quyền nghỉ dưỡng 2N1Đ đi kèm gói năm, tạo tệp khách nguồn chắc chắn cho Giai đoạn 3.' }
         ],
         impactHtml: `
           <div class="impact-card">
-            <strong>1. Cấp vốn tự chủ cho Giai đoạn 2B (BioFlow &amp; Eco Hub):</strong><br/>
-            Dòng tiền thu trước từ Crowdfarming và đơn hàng quà tặng B2B tạo ngân sách chế tạo máy vớt lục bình BioFlow và dựng trạm ủ phân Eco Hub mà không cần vay nợ.
+            <strong>1. Cấp vốn tự chủ 0% nợ vay cho Giai đoạn 2B:</strong><br/>
+            Dòng tiền trả trước từ 80–100 gốc cây và 200–300 giỏ quà B2B tạo ngân sách ròng ~70–90 triệu VNĐ để chế tạo băng tải vớt bèo BioFlow và dựng trạm ủ phân Eco Hub.
           </div>
           <div class="impact-card">
-            <strong>2. Đòn bẩy kéo khách tự nhiên sang Giai đoạn 3:</strong><br/>
-            Vé tặng nghỉ dưỡng 2N1Đ biến mỗi chủ nhân nuôi cây ở Giai đoạn 2A thành tệp du khách chắc chắn về thăm vườn và chi tiêu ẩm thực F&amp;B ở Giai đoạn 3.
+            <strong>2. Dữ liệu đầu vào ấn định công suất Giai đoạn 3:</strong><br/>
+            Tổng số lượng chủ cây nắm giữ vé tặng 2N1Đ ở 2A là biến số trực tiếp để nhóm tính toán công suất bếp F&amp;B và phòng lưu trú cần mở ở Giai đoạn 3.
           </div>
         `
       },
       '2B': {
-        badge: 'Giai đoạn 2B · Tháng 6 – Tháng 12 · Cải tạo sinh thái & làng nghề',
+        badge: 'Giai đoạn 2B · Tháng 6 – Tháng 12 · Quyết định từ số liệu GĐ 1 & 2A',
         title: '2B. Máy vớt bèo BioFlow, trạm phân bón Eco Hub và làng nghề Nối Nghề',
-        summary: 'Triển khai chuỗi dự án vệ tinh làm sạch cảnh quan kênh rạch, tự chủ nguồn phân hữu cơ vi sinh giá rẻ và chuẩn hóa tay nghề đón khách du lịch cho cộng đồng địa phương.',
+        summary: 'Sử dụng ngân sách tự chủ từ 2A để vận hành máy vớt lục bình mặt trời, ủ phân hữu cơ vi sinh trên mặt bằng đối ứng 0đ với UBND xã và chuẩn hóa hộ dân sẵn sàng đón khách du lịch.',
         camera: { x: 1105, y: 318, scale: 1.84 },
         mobileCamera: { x: 1106, y: 292 },
         projects: [
@@ -1781,7 +1822,7 @@
           {
             name: '2. Trạm tuần hoàn sinh khối Eco Hub Bình Mỹ',
             owner: 'Phan Hoàng Vân Anh',
-            desc: 'Ủ lục bình từ BioFlow cùng phụ phẩm nông nghiệp bằng nấm đối kháng Trichoderma thành phân hữu cơ rẻ hơn 30%, kết hợp không gian Workshop trồng cây miễn phí.'
+            desc: 'Ủ lục bình từ BioFlow cùng phụ phẩm vườn bằng nấm Trichoderma thành phân hữu cơ rẻ hơn 30% trên mặt bằng đối ứng 0đ, kết hợp mở miễn phí 100% Workshop trồng cây và đo lường Tín chỉ Carbon.'
           },
           {
             name: '3. Ứng dụng Nối Nghề & chuẩn hóa đón khách',
@@ -1789,56 +1830,60 @@
             desc: 'Phối hợp HTX Làng nghề số hóa bài học đan lát truyền thống, dựng Nhà thủ công Showcase và tập huấn quy trình đón tiếp du khách cho hộ dân.'
           }
         ],
+        kpiRule: '<strong>Dự phóng dựa trên số liệu Giai đoạn 1 &amp; vốn 2A:</strong> Công suất máy và sản lượng phân được cân đối theo nhu cầu thực của &gt;70% hộ dân trên Agri Hub. Kịch bản dự phóng:',
         goals: [
-          { metric: '-30% giá', text: 'Phân hữu cơ từ Eco Hub cấp ngược lại cho Agri Hub (GĐ 1A), tiếp tục hạ chi phí canh tác.' },
-          { metric: '0đ mặt bằng', text: 'Đổi giá trị làm sạch kênh rạch cùng địa phương để tối ưu chi phí mặt bằng bãi tập kết và trạm ủ.' },
-          { metric: '100% chuẩn', text: 'Hộ dân và nghệ nhân trên tuyến tham quan hoàn thành đào tạo tiêu chuẩn dịch vụ du lịch.' }
+          { proj: 'BioFlow', metric: '15–20 tấn/th', text: '01 băng tải pin mặt trời làm sạch 1–1,5 km rạch thí điểm (0đ tiền điện, hoàn vốn thiết bị sau ~4 tháng).' },
+          { proj: 'Eco Hub', metric: '3,5–4,5 tấn/th', text: 'Sản xuất phân vi sinh rẻ hơn 30% (0đ mặt bằng); >50% hộ trên Agri Hub chuyển sang dùng phân nội khu.' },
+          { proj: 'Nối Nghề', metric: '> 150 sp/tháng', text: 'Số hóa 15–20 bài giảng đan lát 80 năm, kết nối >15 nghệ nhân bán hàng (giữ trọn 95% doanh thu).' },
+          { proj: 'Chuẩn du lịch', metric: '100% hộ tuyến', text: '15–20 hộ nhà vườn & nghệ nhân trên tuyến tham quan hoàn tất đào tạo quy chuẩn đón tiếp khách.' }
         ],
         impactHtml: `
           <div class="impact-card">
             <strong>1. Khép kín vòng lặp vật tư về Giai đoạn 1A:</strong><br/>
-            Phân hữu cơ vi sinh từ Eco Hub quay lại nuôi dưỡng các vườn rau Bao Tiêu Xanh và vườn cây ăn trái Crowdfarming với chi phí thấp nhất.
+            3,5–4,5 tấn phân vi sinh/tháng từ Eco Hub quay lại nuôi dưỡng các vườn rau Bao Tiêu Xanh và vườn cây Crowdfarming, giúp biên lợi nhuận nông hộ tiếp tục tăng thêm.
           </div>
           <div class="impact-card">
-            <strong>2. Hoàn thiện hạ tầng trải nghiệm cho Giai đoạn 3 không tốn vốn lớn:</strong><br/>
-            Kênh rạch thông thoáng (BioFlow), trạm trải nghiệm xanh (Eco Hub) và Nhà thủ công làng nghề (Nối Nghề) tạo sẵn điểm đến hoàn chỉnh trước khi mở khu du lịch.
+            <strong>2. Chốt điều kiện hạ tầng mở khóa Giai đoạn 3:</strong><br/>
+            Chỉ khi tuyến rạch sạch bèo, trạm Workshop miễn phí vận hành trơn tru và 15–20 hộ dân đạt chuẩn đón khách ở 2B, nhóm mới chính thức kích hoạt Giai đoạn 3.
           </div>
         `
       },
       '3': {
-        badge: 'Giai đoạn 3 · Tháng 12+ · Tối đa hóa biên lợi nhuận',
+        badge: 'Giai đoạn 3 · Tháng 12+ · Quyết định từ số liệu Giai đoạn 2',
         title: '3. Khu du lịch sinh thái ven sông Điền Trang Đại Đồng (F&B & lưu trú)',
-        summary: 'Điểm rơi thu hoạch lợi nhuận với chi phí đầu tư thấp nhất: Đón khách từ vé tặng 2N1Đ Crowdfarming và du khách TP.HCM về thưởng thức ẩm thực ven sông, tham gia Eco Hub và làng nghề.',
+        summary: 'Quy mô vận hành được quyết định trực tiếp từ số liệu thực tế của Giai đoạn 2: Đón tệp chủ cây dùng vé tặng 2N1Đ và du khách TP.HCM về trải nghiệm ẩm thực ven sông, Eco Hub và làng nghề.',
         camera: { x: 1320, y: 408, scale: 1.84 },
         mobileCamera: { x: 1410, y: 408 },
         projects: [
           {
             name: '1. Tổ hợp ẩm thực ven sông (F&B) & lưu trú sinh thái 2N1Đ',
-            owner: 'Nhóm 4 (In-house / Đối tác)',
-            desc: 'Khai thác ẩm thực chế biến trực tiếp từ nông sản sạch tại vườn và lưu trú nghỉ dưỡng ven sông Sài Gòn (45 phút từ trung tâm TP.HCM). Linh hoạt tự vận hành hoặc hợp tác bên thứ ba.'
+            owner: 'Nhóm 4 (100% In-house)',
+            desc: 'Tự triển khai In-house làm trục chính để đồng bộ bản sắc và tối đa biên lợi nhuận ẩm thực vườn – sông Sài Gòn (45 phút từ trung tâm TP.HCM), mở tùy chọn Co-op hỗ trợ nếu có đối tác uy tín.'
           },
           {
-            name: '2. Tuyến trải nghiệm khép kín: Thăm cây – Eco Hub – Nối Nghề',
+            name: '2. Tuyến trải nghiệm khép kín & thương mại Tín chỉ Carbon ESG',
             owner: 'Toàn hệ sinh thái',
-            desc: 'Du khách tự tay thu hoạch trái trên gốc cây mình nhận nuôi gắn NFC GreenID, trải nghiệm ủ phân trồng cây tại Eco Hub và đan lát cùng nghệ nhân địa phương.'
+            desc: 'Du khách thu hoạch trái trên cây gắn NFC của mình, dự Workshop Eco Hub miễn phí 100%, đan lát cùng nghệ nhân; đồng thời cung cấp gói đồng hành ESG & Tín chỉ Carbon nông nghiệp cho B2B.'
           }
         ],
+        kpiRule: '<strong>Dự phóng dựa trên số liệu Giai đoạn 2:</strong> Ấn định theo số vé 2N1Đ phát hành ở 2A và năng lực đón tiếp của 15–20 hộ vườn ở 2B. Kịch bản dự phóng:',
         goals: [
-          { metric: 'Biên lãi cao', text: 'Dịch vụ ẩm thực F&B và lưu trú nghỉ dưỡng mang lại nguồn thu ròng chủ lực cho toàn dự án.' },
-          { metric: 'Tối giản vốn', text: 'Không phải đầu tư bê tông hóa tốn kém nhờ kế thừa trọn vẹn hệ sinh thái tự vận hành từ Giai đoạn 1 & 2.' },
-          { metric: 'Tự nuôi sống', text: 'Du khách trải nghiệm thực tế hài lòng lại quay về đặt rau hàng tuần (GĐ 1) và nhận nuôi thêm cây (GĐ 2).' }
+          { proj: 'Phễu vé 2N1Đ', metric: '> 65% kích hoạt', text: 'Chủ cây sử dụng vé 2N1Đ (đi kèm 2–3 người thân/vé), đón 450–650 lượt khách/tháng, giảm >75% chi phí Marketing.' },
+          { proj: 'F&B & Lưu trú', metric: '25–35% lãi ròng', text: 'Tổng doanh thu hệ sinh thái đạt 220–320 triệu/tháng; hộ dân địa phương hưởng 60% doanh thu dịch vụ tại vườn.' },
+          { proj: 'ESG & Carbon', metric: '3–5 gói B2B/năm', text: 'Thương mại hóa gói đồng hành ESG & Tín chỉ Carbon đo kiểm từ vườn cây NFC và sinh khối lục bình Eco Hub.' },
+          { proj: 'Khép kín vòng', metric: '> 25% chuyển đổi', text: 'Du khách mới sau chuyến đi quay lại đặt rau định kỳ trên Bao Tiêu Xanh (GĐ 1A) hoặc nhận nuôi cây mới (GĐ 2A).' }
         ],
         impactHtml: `
           <div class="impact-card">
-            <strong>Vòng lặp tự nuôi sống hoàn chỉnh:</strong><br/>
-            Giai đoạn 1 tạo thói quen tiêu dùng và uy tín → Giai đoạn 2 huy động vốn Crowdfarming, làm sạch môi trường và dựng nền móng làng nghề → Giai đoạn 3 tối đa lợi nhuận từ F&amp;B, du lịch và chuyển hóa du khách ngược lại thành khách hàng định kỳ của Giai đoạn 1.
+            <strong>Vòng lặp tự nuôi sống &amp; quản trị bằng dữ liệu (Data-Driven Flywheel):</strong><br/>
+            Số liệu Giai đoạn 1 (~30tr hoa hồng, &gt;20% khách lặp lại, &gt;30% quét NFC lần đầu) quyết định quy mô Giai đoạn 2 → Số liệu Giai đoạn 2 (80–100 gốc cây, 15–20 tấn bèo/tháng, 100% hộ đạt chuẩn) quyết định công suất Giai đoạn 3 → Hơn 25% du khách Giai đoạn 3 lại bơm ngược đơn hàng về Giai đoạn 1.
           </div>
         `
       }
     };
 
     const ORDER = ['1A', '1B', '2A', '2B', '3'];
-    const NEXT_TAB_LABELS = ['Chỉ số mục tiêu →', 'Đòn bẩy liên kết →'];
+    const NEXT_TAB_LABELS = ['KPI giai đoạn →', 'Đòn bẩy liên kết →'];
     let currentMilestone = '1A';
     let currentSubpart = 0;
     let isOverviewMode = false;
@@ -1901,9 +1946,12 @@
             ${p.demoUrl ? `<a class="proj-demo-link" href="${p.demoUrl}" target="_blank" rel="noopener noreferrer" title="${p.demoTitle || p.demoLabel || 'Xem bản demo'}"><span class="proj-demo-dot" aria-hidden="true"></span><span>${p.demoLabel || 'Xem bản demo'}</span><span class="proj-demo-arrow" aria-hidden="true">↗</span></a>` : ''}
           </div>
         `).join(''),
-        d.goals.map(g => `
+        (d.kpiRule ? `<div class="kpi-gate-note">${d.kpiRule}</div>` : '') + d.goals.map(g => `
           <div class="kpi-row">
-            <div class="kpi-num">${g.metric}</div>
+            <div class="kpi-left">
+              ${g.proj ? `<span class="kpi-proj-tag">${g.proj}</span>` : ''}
+              <div class="kpi-num">${g.metric}</div>
+            </div>
             <div class="kpi-text">${g.text}</div>
           </div>
         `).join(''),
