@@ -971,10 +971,10 @@
       }
     }
 
-    /* 1600x760 Vector + HTML Coordinate Stage */
+    /* 1600x840 Vector + HTML Coordinate Stage */
     .roadmap-stage {
       width: 1600px;
-      height: 760px;
+      height: 840px;
       position: absolute;
       top: 0;
       left: 0;
@@ -989,7 +989,7 @@
       position: absolute;
       inset: 0;
       width: 1600px;
-      height: 760px;
+      height: 840px;
       overflow: visible;
       shape-rendering: geometricPrecision;
     }
@@ -1052,6 +1052,7 @@
       font-weight: 700;
       color: var(--ink-forest);
       letter-spacing: -0.01em;
+      white-space: nowrap;
     }
 
     .nc-pill {
@@ -1418,7 +1419,7 @@
             </div>
 
         <div class="roadmap-stage focused-mode" id="roadmap-stage">
-          <svg class="roadmap-svg" viewBox="0 0 1600 760" xmlns="http://www.w3.org/2000/svg">
+          <svg class="roadmap-svg" viewBox="0 0 1600 840" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="riverFlow" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stop-color="#4F782F"/>
@@ -1437,116 +1438,116 @@
             </defs>
 
             <!-- Quiet Saigon River Contour Whisper -->
-            <path class="svg-river-whisper" d="M 0 448 C 280 545, 520 275, 800 450 C 1080 620, 1320 265, 1600 355" fill="none" stroke="#D5E0CE" stroke-width="1.2"/>
+            <path class="svg-river-whisper" d="M 0 468 C 280 565, 520 295, 800 470 C 1080 640, 1320 285, 1600 375" fill="none" stroke="#D5E0CE" stroke-width="1.2"/>
 
             <!-- Organic Saigon River Living-Flow Ribbon Weaving Across 5 Milestones -->
-            <path class="svg-river-main" d="M 48 456 C 120 518, 250 518, 339 410 C 428 302, 556 302, 643 410 C 730 518, 860 518, 947 410 C 1034 302, 1164 302, 1251 410 C 1332 512, 1435 512, 1504 410 C 1526 376, 1542 356, 1556 348"
+            <path class="svg-river-main" d="M 48 476 C 120 538, 250 538, 339 430 C 428 322, 556 322, 643 430 C 730 538, 860 538, 947 430 C 1034 322, 1164 322, 1251 430 C 1332 532, 1435 532, 1504 430 C 1526 396, 1544 380, 1564 372"
                   fill="none" stroke="url(#riverFlow)" stroke-width="4.5" stroke-linecap="round" opacity="0.88"/>
 
-            <!-- Cross-Phase Loop 1 (Top Gold): 2A (799, 272) -> Phase 3 (1418, 168) -->
-            <path class="svg-loop-gold" d="M 799 272 L 799 112 Q 799 92 819 92 L 1398 92 Q 1418 92 1418 112 L 1418 164"
+            <!-- Cross-Phase Loop 1 (Top Gold): 2A (795, 276) -> Phase 3 (1415, 92) -->
+            <path class="svg-loop-gold" d="M 795 276 L 795 68 Q 795 48 815 48 L 1395 48 Q 1415 48 1415 68 L 1415 92"
                   fill="none" stroke="#A8791E" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrowGold)"/>
-            <circle class="svg-loop-dot svg-loop-gold" cx="799" cy="272" r="4.5" fill="#FCFDFB" stroke="#A8791E" stroke-width="2"/>
+            <circle class="svg-loop-dot svg-loop-gold" cx="795" cy="276" r="4.5" fill="#FCFDFB" stroke="#A8791E" stroke-width="2"/>
 
-            <g transform="translate(866, 78)">
+            <g transform="translate(862, 34)">
               <rect class="svg-loop-pill" x="0" y="0" width="486" height="28" rx="14" fill="#FCFDFB" stroke="#D8AE4E" stroke-width="1.4"/>
               <text class="svg-loop-text" x="243" y="18" fill="#063824" font-size="10.5" font-weight="600" text-anchor="middle">
                 Đòn bẩy 2A → Giai đoạn 3: Nuôi cây tặng kỳ nghỉ 2N1Đ kéo khách về Điền Trang
               </text>
             </g>
 
-            <!-- Cross-Phase Loop 2 (Bottom Olive): 2B (1099, 438) -> 1A (214, 486) -->
-            <path class="svg-loop-olive" d="M 1099 438 L 1099 676 Q 1099 696 1079 696 L 382 696 Q 362 696 362 676 L 362 506 Q 362 486 342 486 L 218 486"
+            <!-- Cross-Phase Loop 2 (Bottom Olive): 2B (1099, 458) -> Open Alley x=350 -> 1A (220, 506) -->
+            <path class="svg-loop-olive" d="M 1099 458 L 1099 756 Q 1099 776 1079 776 L 370 776 Q 350 776 350 756 L 350 526 Q 350 506 330 506 L 220 506"
                   fill="none" stroke="#3E6B2C" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#arrowOlive)"/>
-            <circle class="svg-loop-dot svg-loop-olive" cx="1099" cy="438" r="4.5" fill="#FCFDFB" stroke="#3E6B2C" stroke-width="2"/>
+            <circle class="svg-loop-dot svg-loop-olive" cx="1099" cy="458" r="4.5" fill="#FCFDFB" stroke="#3E6B2C" stroke-width="2"/>
 
-            <g transform="translate(486, 682)">
-              <rect class="svg-loop-pill" x="0" y="0" width="510" height="28" rx="14" fill="#FCFDFB" stroke="#82C341" stroke-width="1.4"/>
-              <text class="svg-loop-text" x="255" y="18" fill="#063824" font-size="10.5" font-weight="600" text-anchor="middle">
+            <g transform="translate(476, 762)">
+              <rect class="svg-loop-pill" x="0" y="0" width="524" height="28" rx="14" fill="#FCFDFB" stroke="#82C341" stroke-width="1.4"/>
+              <text class="svg-loop-text" x="262" y="18" fill="#063824" font-size="10.5" font-weight="600" text-anchor="middle">
                 Tuần hoàn sinh khối: Phân hữu cơ lục bình Eco Hub (2B) cấp ngược giá rẻ (-30%) cho Agri Hub (1A)
               </text>
             </g>
 
-            <!-- 5 Minimalist Architectural Timeline Segments (Y = 384..436) -->
+            <!-- 5 Minimalist Architectural Timeline Segments (Y = 404..456) -->
             <g style="cursor:pointer;" data-ms="1A">
-              <rect x="48" y="384" width="284" height="52" rx="10" fill="#467231" stroke="#063824" stroke-width="1"/>
-              <text x="190" y="405" fill="#E4F2DA" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="0.03em">Giai đoạn 1A · Khởi động hệ thống</text>
-              <text x="190" y="423" fill="#FCFDFB" font-size="13" font-weight="700" text-anchor="middle">Agri Hub &amp; Bao Tiêu Xanh</text>
+              <rect x="48" y="404" width="284" height="52" rx="10" fill="#467231" stroke="#063824" stroke-width="1"/>
+              <text x="190" y="425" fill="#E4F2DA" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="0.03em">Giai đoạn 1A · Khởi động hệ thống</text>
+              <text x="190" y="443" fill="#FCFDFB" font-size="13" font-weight="700" text-anchor="middle">Agri Hub &amp; Bao Tiêu Xanh</text>
             </g>
 
             <g style="cursor:pointer;" data-ms="1B">
-              <rect x="346" y="384" width="290" height="52" rx="10" fill="#23613B" stroke="#063824" stroke-width="1"/>
-              <text x="491" y="405" fill="#DCEFE3" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="0.03em">Giai đoạn 1B · Minh bạch nguồn gốc</text>
-              <text x="491" y="423" fill="#FCFDFB" font-size="13" font-weight="700" text-anchor="middle">FreshTransit &amp; GreenID</text>
+              <rect x="346" y="404" width="290" height="52" rx="10" fill="#23613B" stroke="#063824" stroke-width="1"/>
+              <text x="491" y="425" fill="#DCEFE3" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="0.03em">Giai đoạn 1B · Minh bạch nguồn gốc</text>
+              <text x="491" y="443" fill="#FCFDFB" font-size="13" font-weight="700" text-anchor="middle">FreshTransit &amp; GreenID</text>
             </g>
 
             <g style="cursor:pointer;" data-ms="2A">
-              <rect x="650" y="384" width="290" height="52" rx="10" fill="#9A701C" stroke="#7A5610" stroke-width="1"/>
-              <text x="795" y="405" fill="#FDF3DA" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="0.03em">Giai đoạn 2A · Thu hút vốn đầu tư</text>
-              <text x="795" y="423" fill="#FCFDFB" font-size="13" font-weight="700" text-anchor="middle">Crowdfarming &amp; Giỏ quà B2B</text>
+              <rect x="650" y="404" width="290" height="52" rx="10" fill="#9A701C" stroke="#7A5610" stroke-width="1"/>
+              <text x="795" y="425" fill="#FDF3DA" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="0.03em">Giai đoạn 2A · Thu hút vốn đầu tư</text>
+              <text x="795" y="443" fill="#FCFDFB" font-size="13" font-weight="700" text-anchor="middle">Crowdfarming &amp; Giỏ quà B2B</text>
             </g>
 
             <g style="cursor:pointer;" data-ms="2B">
-              <rect x="954" y="384" width="290" height="52" rx="10" fill="#13533B" stroke="#063824" stroke-width="1"/>
-              <text x="1099" y="405" fill="#D9EFE5" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="0.03em">Giai đoạn 2B · Cải tạo &amp; làng nghề</text>
-              <text x="1099" y="423" fill="#FCFDFB" font-size="13" font-weight="700" text-anchor="middle">BioFlow, Eco Hub &amp; Nối Nghề</text>
+              <rect x="954" y="404" width="290" height="52" rx="10" fill="#13533B" stroke="#063824" stroke-width="1"/>
+              <text x="1099" y="425" fill="#D9EFE5" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="0.03em">Giai đoạn 2B · Cải tạo &amp; làng nghề</text>
+              <text x="1099" y="443" fill="#FCFDFB" font-size="13" font-weight="700" text-anchor="middle">BioFlow, Eco Hub &amp; Nối Nghề</text>
             </g>
 
             <g style="cursor:pointer;" data-ms="3">
-              <rect x="1258" y="384" width="294" height="52" rx="10" fill="#063824" stroke="#DCB254" stroke-width="1.8"/>
-              <text x="1405" y="405" fill="#F2D98D" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="0.03em">Giai đoạn 3 · Tối đa lợi nhuận</text>
-              <text x="1405" y="423" fill="#FCFDFB" font-size="13" font-weight="700" text-anchor="middle">KDL Điền Trang Đại Đồng</text>
+              <rect x="1258" y="404" width="294" height="52" rx="10" fill="#063824" stroke="#DCB254" stroke-width="1.8"/>
+              <text x="1405" y="425" fill="#F2D98D" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="0.03em">Giai đoạn 3 · Tối đa lợi nhuận</text>
+              <text x="1405" y="443" fill="#FCFDFB" font-size="13" font-weight="700" text-anchor="middle">KDL Điền Trang Đại Đồng</text>
             </g>
 
             <!-- Connectors Between Segments -->
             <g stroke="#8FA586" stroke-width="1.6" stroke-linecap="round">
-              <line x1="334" y1="410" x2="344" y2="410"/>
-              <line x1="638" y1="410" x2="648" y2="410"/>
-              <line x1="942" y1="410" x2="952" y2="410"/>
-              <line x1="1246" y1="410" x2="1256" y2="410"/>
+              <line x1="334" y1="430" x2="344" y2="430"/>
+              <line x1="638" y1="430" x2="648" y2="430"/>
+              <line x1="942" y1="430" x2="952" y2="430"/>
+              <line x1="1246" y1="430" x2="1256" y2="430"/>
             </g>
 
             <!-- Milestone Medallion Pins on River Curve -->
             <g class="svg-ms-pin active-pin" id="svg-pin-1A" data-ms="1A">
-              <circle class="pin-halo" cx="190" cy="486" r="28" fill="rgba(216,174,78,0.28)" stroke="#D8AE4E" stroke-width="1.5"/>
-              <circle cx="190" cy="486" r="20" fill="#063824" stroke="#DCB254" stroke-width="3"/>
-              <text x="190" y="490.5" fill="#F6FEF9" font-size="12.5" font-weight="700" text-anchor="middle">1A</text>
+              <circle class="pin-halo" cx="190" cy="506" r="28" fill="rgba(216,174,78,0.28)" stroke="#D8AE4E" stroke-width="1.5"/>
+              <circle cx="190" cy="506" r="20" fill="#063824" stroke="#DCB254" stroke-width="3"/>
+              <text x="190" y="510.5" fill="#F6FEF9" font-size="12.5" font-weight="700" text-anchor="middle">1A</text>
             </g>
 
             <g class="svg-ms-pin" id="svg-pin-1B" data-ms="1B">
-              <circle class="pin-halo" cx="491" cy="334" r="28" fill="rgba(216,174,78,0.28)" stroke="#D8AE4E" stroke-width="1.5"/>
-              <circle cx="491" cy="334" r="20" fill="#063824" stroke="#DCB254" stroke-width="3"/>
-              <text x="491" y="338.5" fill="#F6FEF9" font-size="12.5" font-weight="700" text-anchor="middle">1B</text>
+              <circle class="pin-halo" cx="491" cy="354" r="28" fill="rgba(216,174,78,0.28)" stroke="#D8AE4E" stroke-width="1.5"/>
+              <circle cx="491" cy="354" r="20" fill="#063824" stroke="#DCB254" stroke-width="3"/>
+              <text x="491" y="358.5" fill="#F6FEF9" font-size="12.5" font-weight="700" text-anchor="middle">1B</text>
             </g>
 
             <g class="svg-ms-pin" id="svg-pin-2A" data-ms="2A">
-              <circle class="pin-halo" cx="795" cy="486" r="28" fill="rgba(216,174,78,0.28)" stroke="#D8AE4E" stroke-width="1.5"/>
-              <circle cx="795" cy="486" r="20" fill="#8C6314" stroke="#F5DF98" stroke-width="3"/>
-              <text x="795" y="490.5" fill="#FCFDFB" font-size="12.5" font-weight="700" text-anchor="middle">2A</text>
+              <circle class="pin-halo" cx="795" cy="506" r="28" fill="rgba(216,174,78,0.28)" stroke="#D8AE4E" stroke-width="1.5"/>
+              <circle cx="795" cy="506" r="20" fill="#8C6314" stroke="#F5DF98" stroke-width="3"/>
+              <text x="795" y="510.5" fill="#FCFDFB" font-size="12.5" font-weight="700" text-anchor="middle">2A</text>
             </g>
 
             <g class="svg-ms-pin" id="svg-pin-2B" data-ms="2B">
-              <circle class="pin-halo" cx="1099" cy="334" r="28" fill="rgba(216,174,78,0.28)" stroke="#D8AE4E" stroke-width="1.5"/>
-              <circle cx="1099" cy="334" r="20" fill="#063824" stroke="#DCB254" stroke-width="3"/>
-              <text x="1099" y="338.5" fill="#F6FEF9" font-size="12.5" font-weight="700" text-anchor="middle">2B</text>
+              <circle class="pin-halo" cx="1099" cy="354" r="28" fill="rgba(216,174,78,0.28)" stroke="#D8AE4E" stroke-width="1.5"/>
+              <circle cx="1099" cy="354" r="20" fill="#063824" stroke="#DCB254" stroke-width="3"/>
+              <text x="1099" y="358.5" fill="#F6FEF9" font-size="12.5" font-weight="700" text-anchor="middle">2B</text>
             </g>
 
             <g class="svg-ms-pin" id="svg-pin-3" data-ms="3">
-              <circle class="pin-halo" cx="1405" cy="486" r="28" fill="rgba(216,174,78,0.28)" stroke="#D8AE4E" stroke-width="1.5"/>
-              <circle cx="1405" cy="486" r="20" fill="#063824" stroke="#DCB254" stroke-width="3"/>
-              <text x="1405" y="490.5" fill="#F6FEF9" font-size="13" font-weight="700" text-anchor="middle">3</text>
+              <circle class="pin-halo" cx="1405" cy="506" r="28" fill="rgba(216,174,78,0.28)" stroke="#D8AE4E" stroke-width="1.5"/>
+              <circle cx="1405" cy="506" r="20" fill="#063824" stroke="#DCB254" stroke-width="3"/>
+              <text x="1405" y="510.5" fill="#F6FEF9" font-size="13" font-weight="700" text-anchor="middle">3</text>
             </g>
 
             <!-- Harvest Sun Endpoint Node -->
             <g class="svg-ms-pin" data-ms="3">
-              <circle cx="1556" cy="348" r="15" fill="#063824" stroke="#DCB254" stroke-width="2.5"/>
-              <polygon points="1556,339 1561.5,348 1556,357 1550.5,348" fill="#82C341"/>
+              <circle cx="1564" cy="372" r="15" fill="#063824" stroke="#DCB254" stroke-width="2.5"/>
+              <polygon points="1564,363 1569.5,372 1564,381 1558.5,372" fill="#82C341"/>
             </g>
           </svg>
 
           <!-- ================= HTML ARCHITECTURAL NODE CARDS ================= -->
           <!-- 1A -->
-          <div class="node-card selected-node" data-ms="1A" style="left: 44px; top: 162px; width: 300px;">
+          <div class="node-card selected-node" data-ms="1A" style="left: 42px; top: 138px; width: 304px;">
             <div class="nc-header">
               <span class="nc-title">1A. Agri Hub &amp; Bao Tiêu Xanh</span>
               <span class="nc-pill">Tháng 1–3</span>
@@ -1562,10 +1563,10 @@
             </div>
           </div>
 
-          <div class="node-card selected-node" data-ms="1A" style="left: 44px; top: 522px; width: 300px;">
+          <div class="node-card selected-node" data-ms="1A" style="left: 42px; top: 550px; width: 294px;">
             <div class="nc-header">
               <span class="nc-title">Nền tảng dữ liệu mở khóa GĐ 2</span>
-              <span class="nc-pill">Vốn ~30 triệu</span>
+              <span class="nc-pill">Vốn ~30tr</span>
             </div>
             <ul>
               <li><strong>Hoàn vốn quý 1:</strong> Tự phát triển In-house 3 ứng dụng; hoa hồng ~30tr sau 3 tháng bù đủ vốn mồi.</li>
@@ -1574,7 +1575,7 @@
           </div>
 
           <!-- 1B -->
-          <div class="node-card" data-ms="1B" style="left: 350px; top: 120px; width: 296px;">
+          <div class="node-card" data-ms="1B" style="left: 350px; top: 102px; width: 298px;">
             <div class="nc-header">
               <span class="nc-title">1B. FreshTransit &amp; GreenID</span>
               <span class="nc-pill">Scan đầu &gt;30%</span>
@@ -1589,21 +1590,21 @@
             </div>
           </div>
 
-          <div class="insight-note" data-ms="1B" style="left: 356px; top: 458px; width: 282px;">
+          <div class="insight-note" data-ms="1B" style="left: 368px; top: 480px; width: 272px;">
             <strong>Bàn đạp dữ liệu sang Giai đoạn 2:</strong><br/>
             Tệp <strong>&gt;20%</strong> khách mua lặp lại cùng <strong>&gt;30%</strong> lượt quét NFC lần đầu là thước đo niềm tin để ấn định quy mô mở <strong>Crowdfarming</strong>.
           </div>
 
           <!-- 2A -->
-          <div class="insight-note" data-ms="2A" style="left: 656px; top: 272px; width: 286px;">
+          <div class="insight-note" data-ms="2A" style="left: 652px; top: 276px; width: 286px;">
             <strong>Quyết định KPI từ số liệu GĐ 1:</strong><br/>
             Chỉ tiêu nhận nuôi cây được chốt trực tiếp từ <strong>tệp khách trung thành &amp; dòng vốn hoàn lại</strong> sau 3 tháng đầu Giai đoạn 1.
           </div>
 
-          <div class="node-card tone-gold" data-ms="2A" style="left: 646px; top: 522px; width: 312px;">
+          <div class="node-card tone-gold" data-ms="2A" style="left: 646px; top: 548px; width: 312px;">
             <div class="nc-header">
               <span class="nc-title">2A. Crowdfarming &amp; Quà B2B</span>
-              <span class="nc-pill">Dự phóng 80–100 gốc</span>
+              <span class="nc-pill">80–100 gốc</span>
             </div>
             <ul>
               <li><strong>Nhận nuôi cây (GreenBinhMy × NFC):</strong> Dự phóng <strong>80–100 gốc</strong> (<strong>1,2–1,5tr/năm</strong>), trích 10% Quỹ HTX, tặng vé <strong>2N1Đ</strong>.</li>
@@ -1616,7 +1617,7 @@
           </div>
 
           <!-- 2B -->
-          <div class="node-card" data-ms="2B" style="left: 956px; top: 120px; width: 308px;">
+          <div class="node-card" data-ms="2B" style="left: 954px; top: 96px; width: 306px;">
             <div class="nc-header">
               <span class="nc-title">2B. BioFlow, Eco Hub &amp; Nối Nghề</span>
               <span class="nc-pill">Tháng 6–12</span>
@@ -1632,10 +1633,10 @@
           </div>
 
           <!-- 3 -->
-          <div class="node-card tone-deep" data-ms="3" style="left: 1272px; top: 168px; width: 292px;">
+          <div class="node-card tone-deep" data-ms="3" style="left: 1266px; top: 96px; width: 296px;">
             <div class="nc-header">
               <span class="nc-title">3. KDL Điền Trang Đại Đồng</span>
-              <span class="nc-pill">450–650 khách/th</span>
+              <span class="nc-pill">450–650 khách</span>
             </div>
             <ul>
               <li><strong>Homestay vườn &amp; F&amp;B:</strong> Kích hoạt <strong>&gt;65% vé 2N1Đ</strong> kích cầu chi tiêu F&amp;B (lãi ròng <strong>25–35%</strong>), linh hoạt đa phân khúc.</li>
@@ -1648,7 +1649,7 @@
             </div>
           </div>
 
-          <div class="node-card tone-deep" data-ms="3" style="left: 1260px; top: 522px; width: 304px;">
+          <div class="node-card tone-deep" data-ms="3" style="left: 1260px; top: 548px; width: 302px;">
             <div class="nc-header">
               <span class="nc-title">Chuỗi KPI tự mở khóa liên hoàn</span>
               <span class="nc-pill">Data-Driven</span>
@@ -1692,8 +1693,8 @@
         badge: 'Giai đoạn 1A · Tháng 1 – Tháng 3 · Vốn mồi ~30 triệu VNĐ',
         title: '1A. Xây dựng hệ thống hỗ trợ nông dân và tạo thói quen tiêu dùng',
         summary: 'Giải quyết trực tiếp bài toán thương lái ép giá tại Bình Mỹ bằng bộ đôi Agri Hub (tối ưu đầu vào) và Bao Tiêu Xanh (tối đa đầu ra) dưới sự bảo chứng chất lượng của HTX Nông nghiệp Bình Mỹ.',
-        camera: { x: 280, y: 408, scale: 1.84 },
-        mobileCamera: { x: 196, y: 408 },
+        camera: { x: 280, y: 424, scale: 1.84 },
+        mobileCamera: { x: 196, y: 424 },
         projects: [
           {
             name: '1. Ứng dụng Agri Hub (Dành cho nông dân)',
@@ -1736,8 +1737,8 @@
         badge: 'Giai đoạn 1B · Tháng 1 – Tháng 3 · Vận chuyển & định danh số',
         title: '1B. Trạm trung chuyển hẻm nhỏ FreshTransit và định danh GreenID',
         summary: 'Khép kín khâu vận chuyển chống dập nát từ các tuyến hẻm dưới 2m tại xã Bình Mỹ lên TP.HCM (45 phút) và đo lường hành vi quét chip NFC truy xuất nguồn gốc thực tế trên Zalo Mini Web.',
-        camera: { x: 505, y: 338, scale: 1.84 },
-        mobileCamera: { x: 496, y: 338 },
+        camera: { x: 505, y: 348, scale: 1.84 },
+        mobileCamera: { x: 496, y: 348 },
         projects: [
           {
             name: '1. Bình Mỹ FreshTransit (Logistics hẻm nhỏ & Hub 0đ)',
@@ -1770,8 +1771,8 @@
         badge: 'Giai đoạn 2A · Tháng 4 – Tháng 8 · Quyết định từ số liệu GĐ 1',
         title: '2A. Mở mô hình nhận nuôi cây Crowdfarming và giỏ quà B2B',
         summary: 'Dựa trên dữ liệu khách hàng trung thành (>20%) và dòng vốn hoàn lại (~30tr) của Giai đoạn 1 để ấn định chỉ tiêu nhận nuôi cây ăn trái rễ sâu giữ bờ sông (GreenBinhMy × GreenID) cùng giỏ quà B2B.',
-        camera: { x: 802, y: 472, scale: 1.84 },
-        mobileCamera: { x: 800, y: 475 },
+        camera: { x: 802, y: 506, scale: 1.84 },
+        mobileCamera: { x: 800, y: 512 },
         projects: [
           {
             name: '1. Crowdfarming nhận nuôi cây (GreenBinhMy × GreenID)',
@@ -1811,7 +1812,7 @@
         badge: 'Giai đoạn 2B · Tháng 6 – Tháng 12 · Quyết định từ số liệu GĐ 1 & 2A',
         title: '2B. Máy vớt bèo BioFlow, trạm phân bón Eco Hub và làng nghề Nối Nghề',
         summary: 'Sử dụng ngân sách từ 2A để R&D cải tiến & chế tạo máy vớt lục bình mặt trời (~50tr trọn gói/2 tháng), ủ phân vi sinh trên mặt bằng đối ứng 0đ với UBND xã và chuẩn hóa Homestay hộ dân.',
-        camera: { x: 1105, y: 318, scale: 1.84 },
+        camera: { x: 1105, y: 312, scale: 1.84 },
         mobileCamera: { x: 1106, y: 292 },
         projects: [
           {
@@ -1852,8 +1853,8 @@
         badge: 'Giai đoạn 3 · Tháng 12+ · Quyết định từ số liệu Giai đoạn 2',
         title: '3. Khu du lịch sinh thái ven sông Điền Trang Đại Đồng (F&B & lưu trú)',
         summary: 'Quy mô vận hành quyết định từ số liệu Giai đoạn 2: Khởi đầu bằng cải tạo Homestay sẵn có tại nhà dân vườn (linh hoạt mở rộng đa phân khúc), tối đa hóa lợi nhuận ẩm thực F&B ven sông và Tín chỉ Carbon B2B.',
-        camera: { x: 1320, y: 408, scale: 1.84 },
-        mobileCamera: { x: 1410, y: 408 },
+        camera: { x: 1320, y: 398, scale: 1.84 },
+        mobileCamera: { x: 1410, y: 398 },
         projects: [
           {
             name: '1. Tổ hợp ẩm thực ven sông (F&B) & Homestay đa phân khúc',
@@ -1959,10 +1960,12 @@
       ];
     });
 
+    const STAGE_W = 1600;
+    const STAGE_H = 840;
     let cachedVw = viewport.clientWidth || 980;
     let cachedVh = viewport.clientHeight || 520;
     let isMobileViewport = window.innerWidth <= 1024;
-    let baseScale = Math.min(cachedVw / 1600, cachedVh / 760);
+    let baseScale = Math.min(cachedVw / STAGE_W, cachedVh / STAGE_H);
     let userZoom = 2.04;
     let panX = 0;
     let panY = 0;
@@ -1975,7 +1978,7 @@
       cachedVw = viewport.clientWidth || 980;
       cachedVh = viewport.clientHeight || 520;
       isMobileViewport = window.innerWidth <= 1024;
-      baseScale = Math.min(cachedVw / 1600, cachedVh / 760);
+      baseScale = Math.min(cachedVw / STAGE_W, cachedVh / STAGE_H);
     }
 
     function getMobileFocusZoom() {
@@ -2009,8 +2012,8 @@
     }
 
     function clampPan(totalScale) {
-      const stageW = 1600 * totalScale;
-      const stageH = 760 * totalScale;
+      const stageW = STAGE_W * totalScale;
+      const stageH = STAGE_H * totalScale;
       const padX = Math.min(80, cachedVw * 0.22);
       const padY = Math.min(64, cachedVh * 0.18);
 
@@ -2063,8 +2066,8 @@
       if (mobileFreePan) setMobileFreePan(false);
       stage.classList.remove('focused-mode');
       userZoom = 1;
-      panX = (cachedVw - 1600 * baseScale) / 2;
-      panY = (cachedVh - 760 * baseScale) / 2;
+      panX = (cachedVw - STAGE_W * baseScale) / 2;
+      panY = (cachedVh - STAGE_H * baseScale) / 2;
       updateOverviewLabels();
       applyTransform(smooth);
     }
