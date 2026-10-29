@@ -273,6 +273,60 @@
     html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 
+    @keyframes themeIconPop {
+      0%   { transform: rotate(-42deg) scale(0.72); opacity: 0.5; }
+      100% { transform: rotate(0deg) scale(1); opacity: 1; }
+    }
+    .theme-toggle.icon-pop svg {
+      animation: themeIconPop 0.44s var(--ease-out) both;
+    }
+
+    /* Lan tỏa hình tròn (View Transitions Circular Wipe & Origin Pulse) */
+    ::view-transition-group(root) {
+      animation-duration: 0.64s;
+      animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none;
+      mix-blend-mode: normal;
+      display: block;
+    }
+    ::view-transition-old(root) {
+      z-index: 1;
+    }
+    ::view-transition-new(root) {
+      z-index: 9999;
+    }
+
+    html.vt-switching *,
+    html.vt-switching *::before,
+    html.vt-switching *::after {
+      transition: none !important;
+    }
+
+    .theme-origin-ring {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 22px;
+      height: 22px;
+      margin-left: -11px;
+      margin-top: -11px;
+      border-radius: 50%;
+      border: 2px solid var(--gold-warm);
+      box-shadow: 0 0 0 3px var(--gold-soft);
+      pointer-events: none;
+      z-index: 10000;
+      will-change: transform, opacity;
+      animation: originRipple 0.56s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes originRipple {
+      0%   { transform: translate3d(var(--ox, 0px), var(--oy, 0px), 0) scale(0.35); opacity: 0.95; }
+      100% { transform: translate3d(var(--ox, 0px), var(--oy, 0px), 0) scale(2.85); opacity: 0; }
+    }
+
     .theme-label-short { display: none; }
 
     .overview-trigger {
@@ -1340,7 +1394,7 @@
 
       <div class="header-meta">
         <span class="group-tag">Nhóm 4 · Restartup</span>
-        <button type="button" class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối" aria-label="Chuyển chế độ giao diện Sáng hoặc Tối">
+        <button type="button" class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme(event)" title="Chuyển chế độ Sáng / Tối" aria-label="Chuyển chế độ giao diện Sáng hoặc Tối">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>
@@ -1904,6 +1958,8 @@
     const floatingBackBtn = document.getElementById('floating-back-btn');
     const deadzoneEls = Array.from(document.querySelectorAll('.map-edge-deadzone'));
 
+    let activeThemeTransition = null;
+
     function syncThemeLabels() {
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       if (themeLabelFullEl) themeLabelFullEl.textContent = isDark ? 'Giao diện sáng' : 'Giao diện tối';
@@ -1911,9 +1967,7 @@
       if (themeToggleBtn) themeToggleBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
     }
 
-    function toggleTheme() {
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      const nextTheme = isDark ? 'light' : 'dark';
+    function applyThemeDom(nextTheme) {
       if (nextTheme === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
       } else {
@@ -1921,6 +1975,93 @@
       }
       try { localStorage.setItem('dtdd_theme', nextTheme); } catch (_) {}
       syncThemeLabels();
+    }
+
+    function spawnOriginRipple(x, y) {
+      const ring = document.createElement('span');
+      ring.className = 'theme-origin-ring';
+      ring.setAttribute('aria-hidden', 'true');
+      ring.style.setProperty('--ox', `${x}px`);
+      ring.style.setProperty('--oy', `${y}px`);
+      document.body.appendChild(ring);
+      ring.addEventListener('animationend', () => ring.remove(), { once: true });
+      setTimeout(() => { if (ring.parentNode) ring.remove(); }, 700);
+
+      if (themeToggleBtn) {
+        themeToggleBtn.classList.remove('icon-pop');
+        void themeToggleBtn.offsetWidth;
+        themeToggleBtn.classList.add('icon-pop');
+      }
+    }
+
+    function toggleTheme(evt) {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const nextTheme = isDark ? 'light' : 'dark';
+
+      let originX, originY;
+      if (evt && typeof evt.clientX === 'number' && (evt.clientX !== 0 || evt.clientY !== 0)) {
+        originX = evt.clientX;
+        originY = evt.clientY;
+      } else if (themeToggleBtn) {
+        const rect = themeToggleBtn.getBoundingClientRect();
+        originX = rect.left + rect.width / 2;
+        originY = rect.top + rect.height / 2;
+      } else {
+        originX = window.innerWidth - 160;
+        originY = 32;
+      }
+
+      const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!document.startViewTransition || prefersReducedMotion) {
+        applyThemeDom(nextTheme);
+        if (!prefersReducedMotion) spawnOriginRipple(originX, originY);
+        return;
+      }
+
+      if (activeThemeTransition) {
+        try { activeThemeTransition.skipTransition(); } catch (_) {}
+      }
+
+      const endRadius = Math.hypot(
+        Math.max(originX, window.innerWidth - originX),
+        Math.max(originY, window.innerHeight - originY)
+      );
+
+      document.documentElement.classList.add('vt-switching');
+
+      const transition = document.startViewTransition(() => {
+        applyThemeDom(nextTheme);
+        spawnOriginRipple(originX, originY);
+        void document.documentElement.offsetHeight;
+      });
+      activeThemeTransition = transition;
+
+      transition.ready.then(() => {
+        document.documentElement.animate(
+          {
+            clipPath: [
+              `circle(0px at ${originX}px ${originY}px)`,
+              `circle(${endRadius.toFixed(1)}px at ${originX}px ${originY}px)`
+            ]
+          },
+          {
+            duration: 640,
+            easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+            fill: 'both',
+            pseudoElement: '::view-transition-new(root)'
+          }
+        );
+        requestAnimationFrame(() => {
+          document.documentElement.classList.remove('vt-switching');
+        });
+      }).catch(() => {
+        document.documentElement.classList.remove('vt-switching');
+      });
+
+      transition.finished.finally(() => {
+        if (activeThemeTransition === transition) activeThemeTransition = null;
+        document.documentElement.classList.remove('vt-switching');
+      });
     }
 
     const subTabs = [0, 1, 2].map(i => document.getElementById(`subtab-${i}`));
